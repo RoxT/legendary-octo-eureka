@@ -1,0 +1,201 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Bed.tscn" type="PackedScene" id=2]
+[ext_resource path="res://textures/room.png" type="Texture" id=3]
+[ext_resource path="res://Human.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Bars.tscn" type="PackedScene" id=5]
+[ext_resource path="res://textures/furnishing/desk.png" type="Texture" id=6]
+[ext_resource path="res://textures/furnishing/fridge.png" type="Texture" id=7]
+[ext_resource path="res://textures/furnishing/sink.png" type="Texture" id=8]
+[ext_resource path="res://textures/furnishing/tv.png" type="Texture" id=9]
+[ext_resource path="res://textures/furnishing/table.png" type="Texture" id=10]
+[ext_resource path="res://Couch.tscn" type="PackedScene" id=11]
+[ext_resource path="res://textures/food.png" type="Texture" id=12]
+[ext_resource path="res://HumanController.gd" type="Script" id=13]
+[ext_resource path="res://LevelConroller.gd" type="Script" id=14]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 13 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 110, 57.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 16, 8 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 8, 5.5 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 8, 6 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 16, 5 )
+
+[sub_resource type="CircleShape2D" id=12]
+radius = 7.0
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.5
+} ]
+
+[node name="HumanController" type="Node2D"]
+script = ExtResource( 13 )
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource( 14 )
+
+[node name="Room" type="Sprite" parent="Node2D"]
+position = Vector2( 124, 94 )
+texture = ExtResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="Node2D"]
+position = Vector2( 141, 129 )
+zoom = Vector2( 10, 10 )
+
+[node name="Desk" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 180, 57 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Node2D/Desk"]
+texture = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Desk"]
+position = Vector2( 0, 3.5 )
+shape = SubResource( 1 )
+
+[node name="Wall" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 174, 206 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Node2D/Wall"]
+texture = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Wall"]
+position = Vector2( -35, 9.5 )
+shape = SubResource( 8 )
+
+[node name="Sink" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 68, 60 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Node2D/Sink"]
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Sink"]
+shape = SubResource( 2 )
+
+[node name="Fridge" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 92, 56 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Node2D/Fridge"]
+texture = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Fridge"]
+position = Vector2( 0, 6.5 )
+shape = SubResource( 3 )
+
+[node name="Spot" type="Position2D" parent="Node2D/Fridge"]
+position = Vector2( 0, 15 )
+
+[node name="Bed" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 179, 141 )
+
+[node name="Table" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 155, 128 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Node2D/Table"]
+texture = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Table"]
+position = Vector2( 0, 2 )
+shape = SubResource( 7 )
+
+[node name="Human" parent="Node2D" instance=ExtResource( 4 )]
+position = Vector2( 99, 138 )
+collision_layer = 2
+collision_mask = 0
+
+[node name="Schedule" type="Timer" parent="Node2D/Human"]
+wait_time = 2.0
+autostart = true
+
+[node name="TV" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 68, 142 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Node2D/TV"]
+texture = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/TV"]
+position = Vector2( 0, 11 )
+shape = SubResource( 6 )
+
+[node name="Couch" parent="Node2D" instance=ExtResource( 11 )]
+position = Vector2( 69, 113 )
+
+[node name="PlayerCat" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 134, 143 )
+collision_mask = 3
+
+[node name="DebugLabel" type="Label" parent="Node2D"]
+margin_left = 45.0
+margin_top = 168.0
+margin_right = 86.0
+margin_bottom = 182.0
+text = "Debug"
+
+[node name="Bars" parent="Node2D" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 44.0
+margin_top = 21.0
+margin_right = 44.0
+margin_bottom = 21.0
+
+[node name="Food" type="Area2D" parent="Node2D"]
+position = Vector2( 60, 75 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Food"]
+shape = SubResource( 12 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D/Food"]
+position = Vector2( 0, -3 )
+frames = SubResource( 11 )
+frame = 1
+playing = true
+
+[connection signal="timeout" from="Node2D/Human/Schedule" to="Node2D" method="_on_Schedule_timeout"]
+[connection signal="body_entered" from="Node2D/Food" to="Node2D" method="_on_Food_body_entered"]
