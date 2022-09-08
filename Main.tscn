@@ -194,7 +194,6 @@ shape = SubResource( 12 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D/Food"]
 position = Vector2( 0, -3 )
 frames = SubResource( 11 )
-frame = 1
 playing = true
 
 [connection signal="timeout" from="Node2D/Human/Schedule" to="Node2D" method="_on_Schedule_timeout"]
