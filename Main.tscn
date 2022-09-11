@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Bed.tscn" type="PackedScene" id=2]
@@ -14,6 +14,9 @@
 [ext_resource path="res://textures/food.png" type="Texture" id=12]
 [ext_resource path="res://HumanController.gd" type="Script" id=13]
 [ext_resource path="res://LevelConroller.gd" type="Script" id=14]
+[ext_resource path="res://Human.gd" type="Script" id=15]
+[ext_resource path="res://Food.gd" type="Script" id=16]
+[ext_resource path="res://Bars.gd" type="Script" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 13 )
@@ -119,9 +122,6 @@ texture = ExtResource( 7 )
 position = Vector2( 0, 6.5 )
 shape = SubResource( 3 )
 
-[node name="Spot" type="Position2D" parent="Node2D/Fridge"]
-position = Vector2( 0, 15 )
-
 [node name="Bed" parent="Node2D" instance=ExtResource( 2 )]
 position = Vector2( 179, 141 )
 
@@ -137,15 +137,6 @@ texture = ExtResource( 10 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Table"]
 position = Vector2( 0, 2 )
 shape = SubResource( 7 )
-
-[node name="Human" parent="Node2D" instance=ExtResource( 4 )]
-position = Vector2( 99, 138 )
-collision_layer = 2
-collision_mask = 0
-
-[node name="Schedule" type="Timer" parent="Node2D/Human"]
-wait_time = 2.0
-autostart = true
 
 [node name="TV" type="StaticBody2D" parent="Node2D"]
 position = Vector2( 68, 142 )
@@ -181,9 +172,11 @@ margin_left = 44.0
 margin_top = 21.0
 margin_right = 44.0
 margin_bottom = 21.0
+script = ExtResource( 17 )
 
 [node name="Food" type="Area2D" parent="Node2D"]
 position = Vector2( 60, 75 )
+script = ExtResource( 16 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -194,7 +187,35 @@ shape = SubResource( 12 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D/Food"]
 position = Vector2( 0, -3 )
 frames = SubResource( 11 )
-playing = true
 
-[connection signal="timeout" from="Node2D/Human/Schedule" to="Node2D" method="_on_Schedule_timeout"]
+[node name="FLabel" type="Label" parent="Node2D/Food"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "food debug"
+
+[node name="Human" type="Node2D" parent="Node2D"]
+script = ExtResource( 15 )
+
+[node name="Schedule" type="Timer" parent="Node2D/Human"]
+wait_time = 5.0
+autostart = true
+
+[node name="Fridge" type="Position2D" parent="Node2D/Human"]
+position = Vector2( 69, 76 )
+
+[node name="Couch" type="Position2D" parent="Node2D/Human"]
+position = Vector2( 69, 125 )
+
+[node name="Desk" type="Position2D" parent="Node2D/Human"]
+position = Vector2( 180, 74 )
+
+[node name="Bed" type="Position2D" parent="Node2D/Human"]
+position = Vector2( 180, 147 )
+
+[node name="Body" parent="Node2D/Human" instance=ExtResource( 4 )]
+position = Vector2( 121, 111 )
+
+[connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
 [connection signal="body_entered" from="Node2D/Food" to="Node2D" method="_on_Food_body_entered"]
+[connection signal="timeout" from="Node2D/Human/Schedule" to="." method="_on_Schedule_timeout"]
+[connection signal="timeout" from="Node2D/Human/Schedule" to="Node2D/Human" method="_on_Schedule_timeout"]
