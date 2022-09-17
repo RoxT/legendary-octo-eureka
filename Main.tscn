@@ -1,15 +1,15 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Bed.tscn" type="PackedScene" id=2]
 [ext_resource path="res://textures/room.png" type="Texture" id=3]
 [ext_resource path="res://Human.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Bars.tscn" type="PackedScene" id=5]
-[ext_resource path="res://textures/furnishing/desk.png" type="Texture" id=6]
-[ext_resource path="res://textures/furnishing/fridge.png" type="Texture" id=7]
-[ext_resource path="res://textures/furnishing/sink.png" type="Texture" id=8]
-[ext_resource path="res://textures/furnishing/tv.png" type="Texture" id=9]
-[ext_resource path="res://textures/furnishing/table.png" type="Texture" id=10]
+[ext_resource path="res://textures/furniture/desk.png" type="Texture" id=6]
+[ext_resource path="res://textures/furniture/side table.png" type="Texture" id=7]
+[ext_resource path="res://textures/furniture/sink.png" type="Texture" id=8]
+[ext_resource path="res://textures/furniture/fridge 2.png" type="Texture" id=9]
+[ext_resource path="res://textures/furniture/tv.png" type="Texture" id=10]
 [ext_resource path="res://Couch.tscn" type="PackedScene" id=11]
 [ext_resource path="res://textures/food.png" type="Texture" id=12]
 [ext_resource path="res://HumanController.gd" type="Script" id=13]
@@ -17,6 +17,8 @@
 [ext_resource path="res://Human.gd" type="Script" id=15]
 [ext_resource path="res://Food.gd" type="Script" id=16]
 [ext_resource path="res://Bars.gd" type="Script" id=17]
+[ext_resource path="res://textures/pixel button down.png" type="Texture" id=18]
+[ext_resource path="res://textures/pixel button up.png" type="Texture" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 13 )
@@ -30,6 +32,22 @@ extents = Vector2( 16, 8 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 8, 5.5 )
 
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 9 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 8, 6 )
 
@@ -40,12 +58,10 @@ extents = Vector2( 16, 5 )
 radius = 7.0
 
 [sub_resource type="AtlasTexture" id=9]
-flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=10]
-flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 16, 0, 16, 16 )
 
@@ -58,6 +74,7 @@ animations = [ {
 } ]
 
 [node name="HumanController" type="Node2D"]
+position = Vector2( -44, -21 )
 script = ExtResource( 13 )
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -85,15 +102,14 @@ position = Vector2( 0, 3.5 )
 shape = SubResource( 1 )
 
 [node name="Wall" type="StaticBody2D" parent="Node2D"]
+visible = false
 position = Vector2( 174, 206 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" type="Sprite" parent="Node2D/Wall"]
-texture = ExtResource( 6 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Wall"]
+visible = false
 position = Vector2( -35, 9.5 )
 shape = SubResource( 8 )
 
@@ -115,12 +131,12 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Sprite" type="Sprite" parent="Node2D/Fridge"]
-texture = ExtResource( 7 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Fridge"]
 position = Vector2( 0, 6.5 )
 shape = SubResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D/Fridge"]
+frames = SubResource( 15 )
 
 [node name="Bed" parent="Node2D" instance=ExtResource( 2 )]
 position = Vector2( 179, 141 )
@@ -132,7 +148,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Node2D/Table"]
-texture = ExtResource( 10 )
+texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Table"]
 position = Vector2( 0, 2 )
@@ -145,7 +161,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Node2D/TV"]
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/TV"]
 position = Vector2( 0, 11 )
@@ -188,11 +204,6 @@ shape = SubResource( 12 )
 position = Vector2( 0, -3 )
 frames = SubResource( 11 )
 
-[node name="FLabel" type="Label" parent="Node2D/Food"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "food debug"
-
 [node name="Human" type="Node2D" parent="Node2D"]
 script = ExtResource( 15 )
 
@@ -215,7 +226,72 @@ position = Vector2( 180, 147 )
 [node name="Body" parent="Node2D/Human" instance=ExtResource( 4 )]
 position = Vector2( 121, 111 )
 
+[node name="Buttons" type="Position2D" parent="Node2D"]
+position = Vector2( 44, 167 )
+
+[node name="Up" type="Button" parent="Node2D/Buttons"]
+margin_left = 99.0
+margin_top = -1.0
+margin_right = 129.0
+margin_bottom = 19.0
+text = "Up"
+
+[node name="Down" type="Button" parent="Node2D/Buttons"]
+margin_left = 92.0
+margin_top = 41.0
+margin_right = 140.0
+margin_bottom = 61.0
+text = "Down"
+
+[node name="Right" type="Button" parent="Node2D/Buttons"]
+margin_left = 116.0
+margin_top = 20.0
+margin_right = 160.0
+margin_bottom = 40.0
+text = "Right"
+
+[node name="Left" type="Button" parent="Node2D/Buttons"]
+margin_left = 71.0
+margin_top = 19.0
+margin_right = 107.0
+margin_bottom = 39.0
+text = "Left"
+
+[node name="Sleep" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 6.0
+margin_top = 21.0
+margin_right = 46.0
+margin_bottom = 61.0
+rect_pivot_offset = Vector2( 19, 24 )
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 18 )
+
+[node name="Label" type="Label" parent="Node2D/Buttons/Sleep"]
+margin_left = -2.0
+margin_top = 31.0
+margin_right = 38.0
+margin_bottom = 45.0
+text = "Sleep"
+
+[node name="Jump" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 51.0
+margin_top = 57.0
+margin_right = 91.0
+margin_bottom = 97.0
+rect_pivot_offset = Vector2( 19, 24 )
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 18 )
+
+[node name="Label" type="Label" parent="Node2D/Buttons/Jump"]
+margin_left = -1.0
+margin_top = 32.0
+margin_right = 39.0
+margin_bottom = 46.0
+text = "Jump"
+
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
 [connection signal="body_entered" from="Node2D/Food" to="Node2D" method="_on_Food_body_entered"]
 [connection signal="timeout" from="Node2D/Human/Schedule" to="." method="_on_Schedule_timeout"]
 [connection signal="timeout" from="Node2D/Human/Schedule" to="Node2D/Human" method="_on_Schedule_timeout"]
+[connection signal="pressed" from="Node2D/Buttons/Sleep" to="Node2D" method="_on_Sleep_pressed"]
+[connection signal="pressed" from="Node2D/Buttons/Jump" to="Node2D" method="_on_Jump_pressed"]
