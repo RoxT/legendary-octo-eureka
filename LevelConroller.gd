@@ -25,6 +25,16 @@ func _on_Food_body_entered(body):
 
 func _on_Sleep_pressed():
 	$PlayerCat.sleep_toggle()
+	$Bars.sleep()
 
 func _on_Jump_pressed():
-	$PlayerCat.jump()
+	$PlayerCat.target_jump()
+
+
+func _on_PlayerCat_cat_sleep():
+	$Bars.sleep()
+
+
+func _on_PlayerCat_cat_wake():
+	$Bars.wake()
+

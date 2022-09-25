@@ -1,39 +1,50 @@
 extends KinematicBody2D
 
-export var speed: int = 150;
+export var speed: int = 100;
 onready var sprite = get_node("AnimatedSprite")
 var direction: Vector2 = Vector2(1, 0)
+var area_clear: bool = false
+var jump_target: Vector2
+var up_jump: bool
+signal cat_wake
+signal cat_sleep
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sprite.animation = "run"
 
 func _physics_process(delta):
-	if sprite.animation == "jump":
-		move_and_slide(direction * speed/3)
+	if sprite.animation == "jump" && !up_jump:
+		move_and_collide(jump_target * 1.5 * delta)
 	
 	if Input.is_action_just_pressed("sleep"):
 		sleep_toggle()
+	if Input.is_action_just_pressed("jump"):
+		target_jump()
 	if sprite.animation == "run":
-		if Input.is_action_just_pressed("jump"):
-			jump()
 		if direction != Vector2(0, 0):
 			do_run(delta)
 		else:
 			check_input_and_run(delta)
 
-	
-
-func jump():
+func target_jump():
+	if area_clear:
+		jump_target = $CollisionShape2D/Area2D.position
+		collision_layer = 0
+		collision_mask = 0
+		up_jump = false
+	else:
+		up_jump = true
 	sprite.animation = "jump"
-	collision_layer = 0
-	collision_mask = 0
+
 
 func sleep_toggle():
 	if sprite.animation == "sleep":
 		sprite.animation = "run"
+		emit_signal("cat_wake")
 	elif sprite.animation == "run":
 		sprite.animation = "loaf"
+		emit_signal("cat_sleep")
 	
 func _on_AnimatedSprite_animation_finished():
 	if sprite.animation == "loaf":
@@ -57,6 +68,8 @@ func check_input_and_run(delta):
 	elif (Input.is_action_pressed("ui_down")):
 		y = 1;
 	direction = Vector2(x, y).normalized()
+	if direction != Vector2.ZERO:
+		$CollisionShape2D/Area2D.position = direction * 25
 	do_run(delta)
 
 func set_direction(dir: Vector2):
@@ -80,3 +93,12 @@ func layerJump(collision):
 		#move to JumpTo
 		
 		#Turn on layer/mask 2
+
+func _on_Area2D_body_entered(body):
+	area_clear = false
+	$CollisionShape2D/Area2D/Debug/ColorRect.visible = true
+
+
+func _on_Area2D_body_exited(body):
+	area_clear = true
+	$CollisionShape2D/Area2D/Debug/ColorRect.visible = false

@@ -23,4 +23,4 @@ func sleep():
 	$Energy.play("default", false)
 
 func wake():
-	$Energy.play("defualt", true)
+	$Energy.play("default", true)
