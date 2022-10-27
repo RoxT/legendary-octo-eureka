@@ -188,11 +188,6 @@ shape = SubResource( 12 )
 position = Vector2( 0, -3 )
 frames = SubResource( 11 )
 
-[node name="FLabel" type="Label" parent="Node2D/Food"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "food debug"
-
 [node name="Human" type="Node2D" parent="Node2D"]
 script = ExtResource( 15 )
 

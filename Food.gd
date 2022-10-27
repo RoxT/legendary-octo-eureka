@@ -21,5 +21,3 @@ func empty():
 func _on_Food_area_entered(area):
 	if area.name == "Body":
 		refill()
-	var format_text = "%s"
-	$FLabel.text = format_text % area.name
