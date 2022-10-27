@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tv.png-be1cb2e5686d5ea0fd6fb9897984ac9f.stex"
+path="res://.import/fridge 2.png-7d15280cc1ab6570918e731e10687bd1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/furnishing/tv.png"
-dest_files=[ "res://.import/tv.png-be1cb2e5686d5ea0fd6fb9897984ac9f.stex" ]
+source_file="res://textures/furniture/fridge 2.png"
+dest_files=[ "res://.import/fridge 2.png-7d15280cc1ab6570918e731e10687bd1.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/room.png-9f3376708c86461ce4c32d5a54c1d200.stex"
+path="res://.import/desk.png-64d761cd4d406e9ed121497cfcfadb50.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/room.png"
-dest_files=[ "res://.import/room.png-9f3376708c86461ce4c32d5a54c1d200.stex" ]
+source_file="res://textures/furniture/desk.png"
+dest_files=[ "res://.import/desk.png-64d761cd4d406e9ed121497cfcfadb50.stex" ]
 
 [params]
 

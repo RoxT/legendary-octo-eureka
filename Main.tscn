@@ -1,15 +1,15 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Bed.tscn" type="PackedScene" id=2]
 [ext_resource path="res://textures/room.png" type="Texture" id=3]
 [ext_resource path="res://Human.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Bars.tscn" type="PackedScene" id=5]
-[ext_resource path="res://textures/furnishing/desk.png" type="Texture" id=6]
-[ext_resource path="res://textures/furnishing/fridge.png" type="Texture" id=7]
-[ext_resource path="res://textures/furnishing/sink.png" type="Texture" id=8]
-[ext_resource path="res://textures/furnishing/tv.png" type="Texture" id=9]
-[ext_resource path="res://textures/furnishing/table.png" type="Texture" id=10]
+[ext_resource path="res://textures/furniture/desk.png" type="Texture" id=6]
+[ext_resource path="res://textures/furniture/side table.png" type="Texture" id=7]
+[ext_resource path="res://textures/furniture/sink.png" type="Texture" id=8]
+[ext_resource path="res://textures/furniture/fridge 2.png" type="Texture" id=9]
+[ext_resource path="res://textures/furniture/tv.png" type="Texture" id=10]
 [ext_resource path="res://Couch.tscn" type="PackedScene" id=11]
 [ext_resource path="res://textures/food.png" type="Texture" id=12]
 [ext_resource path="res://HumanController.gd" type="Script" id=13]
@@ -17,6 +17,10 @@
 [ext_resource path="res://Human.gd" type="Script" id=15]
 [ext_resource path="res://Food.gd" type="Script" id=16]
 [ext_resource path="res://Bars.gd" type="Script" id=17]
+[ext_resource path="res://textures/pixel button down.png" type="Texture" id=18]
+[ext_resource path="res://textures/pixel button up.png" type="Texture" id=19]
+[ext_resource path="res://Buttons.gd" type="Script" id=20]
+[ext_resource path="res://textures/dpad.png" type="Texture" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 13 )
@@ -30,6 +34,22 @@ extents = Vector2( 16, 8 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 8, 5.5 )
 
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 9 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 8, 6 )
 
@@ -40,12 +60,10 @@ extents = Vector2( 16, 5 )
 radius = 7.0
 
 [sub_resource type="AtlasTexture" id=9]
-flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=10]
-flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 16, 0, 16, 16 )
 
@@ -57,7 +75,52 @@ animations = [ {
 "speed": 0.5
 } ]
 
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 21 )
+region = Rect2( 0, 0, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 21 )
+region = Rect2( 69, 0, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 21 )
+region = Rect2( 138, 0, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 21 )
+region = Rect2( 207, 0, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 21 )
+region = Rect2( 276, 0, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 21 )
+region = Rect2( 0, 69, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 21 )
+region = Rect2( 69, 69, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 21 )
+region = Rect2( 138, 69, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 21 )
+region = Rect2( 207, 69, 69, 69 )
+
+[sub_resource type="SpriteFrames" id=25]
+animations = [ {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+} ]
+
 [node name="HumanController" type="Node2D"]
+position = Vector2( -44, -21 )
 script = ExtResource( 13 )
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -85,15 +148,14 @@ position = Vector2( 0, 3.5 )
 shape = SubResource( 1 )
 
 [node name="Wall" type="StaticBody2D" parent="Node2D"]
+visible = false
 position = Vector2( 174, 206 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" type="Sprite" parent="Node2D/Wall"]
-texture = ExtResource( 6 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Wall"]
+visible = false
 position = Vector2( -35, 9.5 )
 shape = SubResource( 8 )
 
@@ -115,12 +177,12 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Sprite" type="Sprite" parent="Node2D/Fridge"]
-texture = ExtResource( 7 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Fridge"]
 position = Vector2( 0, 6.5 )
 shape = SubResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D/Fridge"]
+frames = SubResource( 15 )
 
 [node name="Bed" parent="Node2D" instance=ExtResource( 2 )]
 position = Vector2( 179, 141 )
@@ -132,7 +194,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Node2D/Table"]
-texture = ExtResource( 10 )
+texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Table"]
 position = Vector2( 0, 2 )
@@ -145,7 +207,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Node2D/TV"]
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/TV"]
 position = Vector2( 0, 11 )
@@ -210,7 +272,115 @@ position = Vector2( 180, 147 )
 [node name="Body" parent="Node2D/Human" instance=ExtResource( 4 )]
 position = Vector2( 121, 111 )
 
+[node name="Buttons" type="Position2D" parent="Node2D"]
+position = Vector2( 44, 167 )
+script = ExtResource( 20 )
+
+[node name="Sleep" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 122.0
+margin_top = 5.0
+margin_right = 162.0
+margin_bottom = 45.0
+rect_pivot_offset = Vector2( 19, 24 )
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 18 )
+
+[node name="Label" type="Label" parent="Node2D/Buttons/Sleep"]
+margin_left = -2.0
+margin_top = 31.0
+margin_right = 38.0
+margin_bottom = 45.0
+text = "Sleep"
+
+[node name="Jump" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 104.0
+margin_top = 52.0
+margin_right = 144.0
+margin_bottom = 92.0
+rect_pivot_offset = Vector2( 19, 24 )
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 18 )
+
+[node name="Label" type="Label" parent="Node2D/Buttons/Jump"]
+margin_left = -1.0
+margin_top = 32.0
+margin_right = 39.0
+margin_bottom = 46.0
+text = "Jump"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D/Buttons"]
+position = Vector2( 50, 56 )
+frames = SubResource( 25 )
+
+[node name="Up" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 42.0
+margin_top = 26.0
+margin_right = 58.0
+margin_bottom = 36.0
+
+[node name="NE" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 63.0
+margin_top = 29.0
+margin_right = 75.0
+margin_bottom = 42.0
+
+[node name="Right" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 69.0
+margin_top = 48.0
+margin_right = 79.0
+margin_bottom = 62.0
+
+[node name="SE" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 64.0
+margin_top = 69.0
+margin_right = 75.0
+margin_bottom = 81.0
+
+[node name="Down" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 43.0
+margin_top = 74.0
+margin_right = 57.0
+margin_bottom = 85.0
+
+[node name="SW" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 25.0
+margin_top = 70.0
+margin_right = 36.0
+margin_bottom = 81.0
+
+[node name="Left" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 19.0
+margin_top = 48.0
+margin_right = 29.0
+margin_bottom = 62.0
+
+[node name="NW" type="TextureButton" parent="Node2D/Buttons"]
+margin_left = 24.0
+margin_top = 30.0
+margin_right = 36.0
+margin_bottom = 42.0
+
+[connection signal="cat_sleep" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_sleep"]
+[connection signal="cat_wake" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_wake"]
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
 [connection signal="body_entered" from="Node2D/Food" to="Node2D" method="_on_Food_body_entered"]
 [connection signal="timeout" from="Node2D/Human/Schedule" to="." method="_on_Schedule_timeout"]
 [connection signal="timeout" from="Node2D/Human/Schedule" to="Node2D/Human" method="_on_Schedule_timeout"]
+[connection signal="pressed" from="Node2D/Buttons/Sleep" to="Node2D" method="_on_Sleep_pressed"]
+[connection signal="pressed" from="Node2D/Buttons/Jump" to="Node2D" method="_on_Jump_pressed"]
+[connection signal="button_down" from="Node2D/Buttons/Up" to="Node2D/Buttons" method="_on_Up_button_down"]
+[connection signal="button_up" from="Node2D/Buttons/Up" to="Node2D/Buttons" method="_on_Up_button_up"]
+[connection signal="button_down" from="Node2D/Buttons/NE" to="Node2D/Buttons" method="_on_NE_button_down"]
+[connection signal="button_up" from="Node2D/Buttons/NE" to="Node2D/Buttons" method="_on_NE_button_up"]
+[connection signal="button_down" from="Node2D/Buttons/Right" to="Node2D/Buttons" method="_on_Right_button_down"]
+[connection signal="button_up" from="Node2D/Buttons/Right" to="Node2D/Buttons" method="_on_Right_button_up"]
+[connection signal="button_down" from="Node2D/Buttons/SE" to="Node2D/Buttons" method="_on_SE_button_down"]
+[connection signal="button_up" from="Node2D/Buttons/SE" to="Node2D/Buttons" method="_on_SE_button_up"]
+[connection signal="button_down" from="Node2D/Buttons/Down" to="Node2D/Buttons" method="_on_Down_button_down"]
+[connection signal="button_up" from="Node2D/Buttons/Down" to="Node2D/Buttons" method="_on_Down_button_up"]
+[connection signal="button_down" from="Node2D/Buttons/SW" to="Node2D/Buttons" method="_on_SW_button_down"]
+[connection signal="button_up" from="Node2D/Buttons/SW" to="Node2D/Buttons" method="_on_SW_button_up"]
+[connection signal="button_down" from="Node2D/Buttons/Left" to="Node2D/Buttons" method="_on_Left_button_down"]
+[connection signal="button_up" from="Node2D/Buttons/Left" to="Node2D/Buttons" method="_on_Left_button_up"]
+[connection signal="button_down" from="Node2D/Buttons/NW" to="Node2D/Buttons" method="_on_NW_button_down"]
+[connection signal="button_up" from="Node2D/Buttons/NW" to="Node2D/Buttons" method="_on_NW_button_up"]

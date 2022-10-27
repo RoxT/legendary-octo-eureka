@@ -21,3 +21,20 @@ func _on_Food_body_entered(body):
 		if $Food/AnimatedSprite.frame == $Food.FOOD_FULL:
 			$Bars.eat()
 			$Food.empty()
+
+
+func _on_Sleep_pressed():
+	$PlayerCat.sleep_toggle()
+	$Bars.sleep()
+
+func _on_Jump_pressed():
+	$PlayerCat.target_jump()
+
+
+func _on_PlayerCat_cat_sleep():
+	$Bars.sleep()
+
+
+func _on_PlayerCat_cat_wake():
+	$Bars.wake()
+
