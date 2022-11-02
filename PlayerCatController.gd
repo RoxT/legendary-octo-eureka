@@ -5,7 +5,7 @@ onready var sprite = get_node("AnimatedSprite")
 var direction: Vector2 = Vector2(1, 0)
 var area_clear: bool = false
 var jump_target: Vector2
-var up_jump: bool
+var can_jump: bool
 signal cat_wake
 signal cat_sleep
 
@@ -14,7 +14,7 @@ func _ready():
 	sprite.animation = "run"
 
 func _physics_process(delta):
-	if sprite.animation == "jump" && !up_jump:
+	if sprite.animation == "jump" && can_jump:
 		move_and_collide(jump_target * 1.5 * delta)
 	
 	if Input.is_action_just_pressed("sleep"):
@@ -32,9 +32,9 @@ func target_jump():
 		jump_target = $CollisionShape2D/Area2D.position
 		collision_layer = 0
 		collision_mask = 0
-		up_jump = false
+		can_jump = true
 	else:
-		up_jump = true
+		can_jump = false
 	sprite.animation = "jump"
 
 

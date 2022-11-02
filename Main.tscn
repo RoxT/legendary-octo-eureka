@@ -1,16 +1,16 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Bed.tscn" type="PackedScene" id=2]
+[ext_resource path="res://jump_furnature/Bed.tscn" type="PackedScene" id=2]
 [ext_resource path="res://textures/room.png" type="Texture" id=3]
 [ext_resource path="res://Human.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Bars.tscn" type="PackedScene" id=5]
 [ext_resource path="res://textures/furniture/desk.png" type="Texture" id=6]
 [ext_resource path="res://textures/furniture/side table.png" type="Texture" id=7]
-[ext_resource path="res://textures/furniture/sink.png" type="Texture" id=8]
+[ext_resource path="res://jump_furnature/Counter.tscn" type="PackedScene" id=8]
 [ext_resource path="res://textures/furniture/fridge 2.png" type="Texture" id=9]
 [ext_resource path="res://textures/furniture/tv.png" type="Texture" id=10]
-[ext_resource path="res://Couch.tscn" type="PackedScene" id=11]
+[ext_resource path="res://jump_furnature/Couch.tscn" type="PackedScene" id=11]
 [ext_resource path="res://textures/food.png" type="Texture" id=12]
 [ext_resource path="res://HumanController.gd" type="Script" id=13]
 [ext_resource path="res://LevelConroller.gd" type="Script" id=14]
@@ -27,9 +27,6 @@ extents = Vector2( 16, 13 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 110, 57.5 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16, 8 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 8, 5.5 )
@@ -60,10 +57,12 @@ extents = Vector2( 16, 5 )
 radius = 7.0
 
 [sub_resource type="AtlasTexture" id=9]
+flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=10]
+flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 16, 0, 16, 16 )
 
@@ -130,6 +129,10 @@ script = ExtResource( 14 )
 position = Vector2( 124, 94 )
 texture = ExtResource( 3 )
 
+[node name="Room2" type="Sprite" parent="Node2D"]
+position = Vector2( 124, 94 )
+texture = ExtResource( 3 )
+
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
 position = Vector2( 141, 129 )
 zoom = Vector2( 10, 10 )
@@ -158,18 +161,6 @@ __meta__ = {
 visible = false
 position = Vector2( -35, 9.5 )
 shape = SubResource( 8 )
-
-[node name="Sink" type="StaticBody2D" parent="Node2D"]
-position = Vector2( 68, 60 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Node2D/Sink"]
-texture = ExtResource( 8 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Sink"]
-shape = SubResource( 2 )
 
 [node name="Fridge" type="StaticBody2D" parent="Node2D"]
 position = Vector2( 92, 56 )
@@ -212,6 +203,9 @@ texture = ExtResource( 10 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/TV"]
 position = Vector2( 0, 11 )
 shape = SubResource( 6 )
+
+[node name="Counter" parent="Node2D" instance=ExtResource( 8 )]
+position = Vector2( 68, 56 )
 
 [node name="Couch" parent="Node2D" instance=ExtResource( 11 )]
 position = Vector2( 69, 113 )

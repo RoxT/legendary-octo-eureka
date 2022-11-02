@@ -39,11 +39,11 @@ func reset_dpad(dir: String):
 	do_button(dir, false)
 	$AnimatedSprite.frame = frames.NONE
 	
-func do_button(dir: String, pressed: bool):
+func do_button(dir: String, is_pressed: bool):
 	var ev = InputEventAction.new()
 	var action_name = "ui_%s"
 	ev.action = action_name % dir
-	ev.pressed = pressed
+	ev.pressed = is_pressed
 	Input.parse_input_event(ev)
 
 func _on_NE_button_down():
