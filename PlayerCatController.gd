@@ -57,15 +57,23 @@ func _on_AnimatedSprite_animation_finished():
 func check_input_and_run(delta):
 	var x = 0;
 	var y = 0;
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right") || \
+			Input.is_action_pressed("ui_up_right") || \
+			Input.is_action_pressed("ui_down_right"):
 		x = 1;
 		sprite.flip_h = false;
-	elif (Input.is_action_pressed("ui_left")):
+	elif (Input.is_action_pressed("ui_left")) || \
+			(Input.is_action_pressed("ui_up_left")) || \
+			(Input.is_action_pressed("ui_down_left")):
 		x = -1;
 		sprite.flip_h = true;
-	if (Input.is_action_pressed("ui_up")):
+	if (Input.is_action_pressed("ui_up")) || \
+			(Input.is_action_pressed("ui_up_left")) || \
+			(Input.is_action_pressed("ui_up_right")):
 		y = -1;
-	elif (Input.is_action_pressed("ui_down")):
+	elif (Input.is_action_pressed("ui_down")) || \
+			(Input.is_action_pressed("ui_down_left")) || \
+			(Input.is_action_pressed("ui_down_right")):
 		y = 1;
 	direction = Vector2(x, y).normalized()
 	if direction != Vector2.ZERO:
