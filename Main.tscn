@@ -1,9 +1,8 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://jump_furnature/Bed.tscn" type="PackedScene" id=2]
 [ext_resource path="res://textures/room.png" type="Texture" id=3]
-[ext_resource path="res://Human.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Bars.tscn" type="PackedScene" id=5]
 [ext_resource path="res://textures/furniture/desk.png" type="Texture" id=6]
 [ext_resource path="res://textures/furniture/side table.png" type="Texture" id=7]
@@ -14,7 +13,6 @@
 [ext_resource path="res://textures/food.png" type="Texture" id=12]
 [ext_resource path="res://HumanController.gd" type="Script" id=13]
 [ext_resource path="res://LevelConroller.gd" type="Script" id=14]
-[ext_resource path="res://Human.gd" type="Script" id=15]
 [ext_resource path="res://Food.gd" type="Script" id=16]
 [ext_resource path="res://Bars.gd" type="Script" id=17]
 [ext_resource path="res://textures/pixel button down.png" type="Texture" id=18]
@@ -249,28 +247,6 @@ shape = SubResource( 12 )
 position = Vector2( 0, -3 )
 frames = SubResource( 11 )
 
-[node name="Human" type="Node2D" parent="Node2D"]
-script = ExtResource( 15 )
-
-[node name="Schedule" type="Timer" parent="Node2D/Human"]
-wait_time = 5.0
-autostart = true
-
-[node name="Fridge" type="Position2D" parent="Node2D/Human"]
-position = Vector2( 69, 76 )
-
-[node name="Couch" type="Position2D" parent="Node2D/Human"]
-position = Vector2( 69, 125 )
-
-[node name="Desk" type="Position2D" parent="Node2D/Human"]
-position = Vector2( 180, 74 )
-
-[node name="Bed" type="Position2D" parent="Node2D/Human"]
-position = Vector2( 180, 147 )
-
-[node name="Body" parent="Node2D/Human" instance=ExtResource( 4 )]
-position = Vector2( 121, 111 )
-
 [node name="Buttons" type="Position2D" parent="Node2D"]
 position = Vector2( 44, 167 )
 script = ExtResource( 20 )
@@ -372,6 +348,4 @@ __meta__ = {
 [connection signal="cat_wake" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_wake"]
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
 [connection signal="body_entered" from="Node2D/Food" to="Node2D" method="_on_Food_body_entered"]
-[connection signal="timeout" from="Node2D/Human/Schedule" to="." method="_on_Schedule_timeout"]
-[connection signal="timeout" from="Node2D/Human/Schedule" to="Node2D/Human" method="_on_Schedule_timeout"]
 [connection signal="pressed" from="Node2D/Buttons/Sleep" to="Node2D" method="_on_Sleep_pressed"]

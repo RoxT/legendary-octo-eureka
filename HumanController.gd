@@ -20,6 +20,9 @@ onready var human_sprite = $Node2D/Human/Body/AnimatedSprite
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	var humanScene = preload("res://Human.tscn")
+	var instance = humanScene.instance()
+	$Node2D.add_child(instance)
 	
 func getDirection():
 	return directions[randi() % directions.size()]
