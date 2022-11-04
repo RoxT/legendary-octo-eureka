@@ -19,10 +19,10 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("sleep"):
 		sleep_toggle()
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") && sprite.animation != "sleep":
 		target_jump()
 	if sprite.animation == "run":
-		if direction != Vector2(0, 0):
+		if direction != Vector2.ZERO:
 			do_run(delta)
 		else:
 			check_input_and_run(delta)
