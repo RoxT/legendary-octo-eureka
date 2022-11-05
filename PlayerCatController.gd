@@ -44,11 +44,11 @@ func sleep_toggle():
 		emit_signal("cat_wake")
 	elif sprite.animation == "run":
 		sprite.animation = "loaf"
-		emit_signal("cat_sleep")
 	
 func _on_AnimatedSprite_animation_finished():
 	if sprite.animation == "loaf":
 		sprite.animation = "sleep"
+		emit_signal("cat_sleep")
 	if sprite.animation == "jump":
 		sprite.animation = "run"
 		collision_layer = 1
