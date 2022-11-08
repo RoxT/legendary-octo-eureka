@@ -2,7 +2,7 @@ extends Node2D
 
 
 const DEFAULT = "default"
-onready var hunger_full = $Bars/Hunger.frames.get_frame_count(DEFAULT)
+onready var hunger_full = $Bars/Hunger.frames.get_frame_count(DEFAULT)-1
 
 var score: int
 var sleeping: bool = false
@@ -28,6 +28,7 @@ func _on_Food_body_entered(body):
 		if $Food/AnimatedSprite.frame == $Food.FOOD_FULL:
 			$Bars.eat()
 			$Food.empty()
+			$PlayerCat.eat()
 			
 func change_debug_label(text):
 	var formatDebug = "%s"
@@ -37,8 +38,11 @@ func _on_Sleep_pressed():
 	$PlayerCat.sleep_toggle()
 
 func _on_PlayerCat_cat_sleep():
-	sleeping = true
-	$Bars.sleep()
+	if ($Bars/Hunger.frame == hunger_full):
+		$PlayerCat.sleep_toggle()
+	else:
+		sleeping = true
+		$Bars.sleep()
 
 func _on_PlayerCat_cat_wake():
 	sleeping = false
@@ -46,4 +50,8 @@ func _on_PlayerCat_cat_wake():
 
 func _on_Energy_animation_finished():
 	if sleeping:
+		$PlayerCat.sleep_toggle()
+
+func _on_Hunger_animation_finished():
+	if sleeping :
 		$PlayerCat.sleep_toggle()

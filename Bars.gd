@@ -1,10 +1,8 @@
 extends Control
 
+onready var hunger = get_node("Hunger")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+export var FOOD_VALUE = 7
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,8 +14,8 @@ func _ready():
 #	pass
 
 func eat():
-	$Hunger.frame = 0
-	$Hunger.play()
+	hunger.frame = max((hunger.frame - FOOD_VALUE), 0)
+	hunger.play()
 
 func sleep():
 	$Energy.play("default", false)

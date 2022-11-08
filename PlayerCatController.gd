@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 export var speed: int = 100;
+export var jump_modifier = 1.5
+export var reticule_modifier = 15
 onready var sprite = get_node("AnimatedSprite")
 var direction: Vector2 = Vector2(1, 0)
 var area_clear: bool = false
@@ -15,7 +17,7 @@ func _ready():
 
 func _physics_process(delta):
 	if sprite.animation == "jump" && can_jump:
-		move_and_collide(jump_target * 1.5 * delta)
+		move_and_collide(jump_target * jump_modifier * delta)
 	
 	if Input.is_action_just_pressed("sleep"):
 		sleep_toggle()
@@ -49,10 +51,15 @@ func _on_AnimatedSprite_animation_finished():
 	if sprite.animation == "loaf":
 		sprite.animation = "sleep"
 		emit_signal("cat_sleep")
-	if sprite.animation == "jump":
+	elif sprite.animation == "jump":
 		sprite.animation = "run"
 		collision_layer = 1
 		collision_mask = 1
+	elif sprite.animation == "eat":
+		sprite.animation = "run"
+		
+func eat():
+	sprite.animation = "eat"
 
 func check_input_and_run(delta):
 	var x = 0;
@@ -77,14 +84,14 @@ func check_input_and_run(delta):
 		y = 1;
 	direction = Vector2(x, y).normalized()
 	if direction != Vector2.ZERO:
-		$CollisionShape2D/Area2D.position = direction * 25
+		$CollisionShape2D/Area2D.position = direction * reticule_modifier
 	do_run(delta)
 
 func set_direction(dir: Vector2):
 	direction = dir
 
 func do_run(delta):
-	var collision = move_and_collide(direction * speed * delta)
+	move_and_collide(direction * speed * delta)
 	if sprite.animation != "jump":
 		direction = Vector2(0, 0)
 
@@ -102,11 +109,11 @@ func layerJump(collision):
 		
 		#Turn on layer/mask 2
 
-func _on_Area2D_body_entered(body):
+func _on_Area2D_body_entered(_body):
 	area_clear = false
 	$CollisionShape2D/Area2D/Debug/ColorRect.visible = true
 
 
-func _on_Area2D_body_exited(body):
+func _on_Area2D_body_exited(_body):
 	area_clear = true
 	$CollisionShape2D/Area2D/Debug/ColorRect.visible = false

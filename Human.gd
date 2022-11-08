@@ -16,7 +16,6 @@ func _ready():
 	target = day[currentPos].position
 	update_target()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if target != null:
 		$Body.position = $Body.position.move_toward(target, delta * speed)

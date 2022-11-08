@@ -6,13 +6,13 @@
 extents = Vector2( 1.5, 6.5 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 1.5, 6.5 )
+extents = Vector2( 1.5, 7 )
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 12, 1.75 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 13, 3.5 )
+extents = Vector2( 14.5, 3.5 )
 
 [node name="Couch" type="Position2D"]
 __meta__ = {
@@ -32,7 +32,7 @@ position = Vector2( 14.5, 8.5 )
 shape = SubResource( 6 )
 
 [node name="Left" type="CollisionShape2D" parent="CouchFLoor"]
-position = Vector2( -14.5, 8.5 )
+position = Vector2( -14.5, 9 )
 shape = SubResource( 5 )
 
 [node name="Down" type="CollisionShape2D" parent="CouchFLoor"]
@@ -40,5 +40,5 @@ position = Vector2( 0, 14.25 )
 shape = SubResource( 7 )
 
 [node name="Up" type="CollisionShape2D" parent="CouchFLoor"]
-position = Vector2( 0, -1.5 )
+position = Vector2( -1.5, -1.5 )
 shape = SubResource( 8 )

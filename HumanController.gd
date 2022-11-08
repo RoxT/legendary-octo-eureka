@@ -35,7 +35,7 @@ func _input(event):
 		#target = get_global_mouse_position()
 		pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	pass 
 
 func update_sprite():

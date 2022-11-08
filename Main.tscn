@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://jump_furnature/Bed.tscn" type="PackedScene" id=2]
@@ -14,12 +14,14 @@
 [ext_resource path="res://textures/food.png" type="Texture" id=12]
 [ext_resource path="res://HumanController.gd" type="Script" id=13]
 [ext_resource path="res://LevelConroller.gd" type="Script" id=14]
+[ext_resource path="res://Human.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Food.gd" type="Script" id=16]
 [ext_resource path="res://Bars.gd" type="Script" id=17]
 [ext_resource path="res://textures/pixel button down.png" type="Texture" id=18]
 [ext_resource path="res://textures/pixel button up.png" type="Texture" id=19]
 [ext_resource path="res://Buttons.gd" type="Script" id=20]
 [ext_resource path="res://textures/dpad.png" type="Texture" id=21]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 13 )
@@ -53,47 +55,38 @@ extents = Vector2( 8, 6 )
 extents = Vector2( 16, 5 )
 
 [sub_resource type="AtlasTexture" id=35]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 80, 32, 80, 16 )
 
 [sub_resource type="AtlasTexture" id=36]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 160, 32, 80, 16 )
 
 [sub_resource type="AtlasTexture" id=37]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 240, 32, 80, 16 )
 
 [sub_resource type="AtlasTexture" id=38]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 48, 80, 16 )
 
 [sub_resource type="AtlasTexture" id=39]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 80, 48, 80, 16 )
 
 [sub_resource type="AtlasTexture" id=40]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 160, 48, 80, 16 )
 
 [sub_resource type="AtlasTexture" id=41]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 240, 48, 80, 16 )
 
 [sub_resource type="AtlasTexture" id=42]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 64, 80, 16 )
 
 [sub_resource type="AtlasTexture" id=43]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 80, 64, 80, 16 )
 
@@ -105,16 +98,58 @@ animations = [ {
 "speed": 1.0
 } ]
 
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 80, 16 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 4 )
+region = Rect2( 80, 0, 80, 16 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 4 )
+region = Rect2( 160, 0, 80, 16 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 4 )
+region = Rect2( 240, 0, 80, 16 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 16, 80, 16 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 4 )
+region = Rect2( 80, 16, 80, 16 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 4 )
+region = Rect2( 160, 16, 80, 16 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 4 )
+region = Rect2( 240, 16, 80, 16 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 32, 80, 16 )
+
+[sub_resource type="SpriteFrames" id=53]
+animations = [ {
+"frames": [ SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ) ],
+"loop": false,
+"name": "default",
+"speed": 0.5
+} ]
+
 [sub_resource type="CircleShape2D" id=12]
 radius = 7.0
 
 [sub_resource type="AtlasTexture" id=9]
-flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=10]
-flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 16, 0, 16, 16 )
 
@@ -174,6 +209,15 @@ animations = [ {
 
 [sub_resource type="CircleShape2D" id=27]
 radius = 16.0
+
+[sub_resource type="RectangleShape2D" id=56]
+extents = Vector2( 55, 5 )
+
+[sub_resource type="RectangleShape2D" id=54]
+extents = Vector2( 80, 4.5 )
+
+[sub_resource type="RectangleShape2D" id=55]
+extents = Vector2( 4, 59.5 )
 
 [node name="HumanController" type="Node2D"]
 position = Vector2( -44, -21 )
@@ -238,6 +282,13 @@ position = Vector2( 179, 141 )
 [node name="Sink" parent="Node2D" instance=ExtResource( 8 )]
 position = Vector2( 68, 57 )
 
+[node name="Couch" parent="Node2D" instance=ExtResource( 11 )]
+position = Vector2( 69, 113 )
+
+[node name="PlayerCat" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 134, 143 )
+collision_mask = 3
+
 [node name="Table" type="StaticBody2D" parent="Node2D"]
 position = Vector2( 155, 128 )
 __meta__ = {
@@ -250,6 +301,8 @@ texture = ExtResource( 7 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Table"]
 position = Vector2( 0, 2 )
 shape = SubResource( 7 )
+
+[node name="Human" parent="Node2D" instance=ExtResource( 15 )]
 
 [node name="TV" type="StaticBody2D" parent="Node2D"]
 position = Vector2( 68, 142 )
@@ -264,19 +317,12 @@ texture = ExtResource( 10 )
 position = Vector2( 0, 11 )
 shape = SubResource( 6 )
 
-[node name="Couch" parent="Node2D" instance=ExtResource( 11 )]
-position = Vector2( 69, 113 )
-
-[node name="PlayerCat" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 134, 143 )
-collision_mask = 3
-
 [node name="DebugLabel" type="Label" parent="Node2D"]
 margin_left = 45.0
 margin_top = 168.0
 margin_right = 86.0
 margin_bottom = 182.0
-text = "???"
+text = "Sleep to score"
 
 [node name="Bars" parent="Node2D" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -292,6 +338,10 @@ position = Vector2( 120, 9 )
 frames = SubResource( 34 )
 frame = 8
 playing = true
+
+[node name="Hunger" type="AnimatedSprite" parent="Node2D/Bars"]
+position = Vector2( 41, 8 )
+frames = SubResource( 53 )
 
 [node name="Food" type="Area2D" parent="Node2D"]
 position = Vector2( 60, 75 )
@@ -404,9 +454,40 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="Ball" parent="Node2D" instance=ExtResource( 22 )]
+position = Vector2( 154, 96 )
+angular_damp = 1.0
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="WallUp" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallUp"]
+position = Vector2( 96, 32 )
+shape = SubResource( 56 )
+
+[node name="WallDown" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallDown"]
+position = Vector2( 80, 141.5 )
+shape = SubResource( 54 )
+
+[node name="WallRight" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallRight"]
+position = Vector2( 156, 77 )
+shape = SubResource( 55 )
+
+[node name="WallLeft" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallLeft"]
+position = Vector2( 3, 78 )
+shape = SubResource( 55 )
+
 [connection signal="cat_sleep" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_sleep"]
 [connection signal="cat_wake" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_wake"]
 [connection signal="animation_finished" from="Node2D/Bars/Energy" to="Node2D" method="_on_Energy_animation_finished"]
+[connection signal="animation_finished" from="Node2D/Bars/Hunger" to="Node2D" method="_on_Hunger_animation_finished"]
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
 [connection signal="body_entered" from="Node2D/Food" to="Node2D" method="_on_Food_body_entered"]
 [connection signal="pressed" from="Node2D/Buttons/Sleep" to="Node2D" method="_on_Sleep_pressed"]
