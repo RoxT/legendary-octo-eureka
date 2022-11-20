@@ -39,7 +39,6 @@ func target_jump():
 		can_jump = false
 	sprite.animation = "jump"
 
-
 func sleep_toggle():
 	if sprite.animation == "sleep":
 		sprite.animation = "run"
@@ -102,12 +101,6 @@ func layerJump(collision):
 			var furnature:Node = collision.get_collider().get_parent().get_parent()
 			if furnature.has_node("JumpTo"):
 				position = furnature.get_node("JumpTo").position	#Jumping
-		
-		#Turn off masks
-		
-		#move to JumpTo
-		
-		#Turn on layer/mask 2
 
 func _on_Area2D_body_entered(_body):
 	area_clear = false
@@ -117,3 +110,5 @@ func _on_Area2D_body_entered(_body):
 func _on_Area2D_body_exited(_body):
 	area_clear = true
 	$CollisionShape2D/Area2D/Debug/ColorRect.visible = false
+	
+

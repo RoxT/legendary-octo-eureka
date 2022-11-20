@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://jump_furnature/Bed.tscn" type="PackedScene" id=2]
@@ -47,6 +47,8 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=57]
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 8, 6 )
@@ -226,6 +228,13 @@ script = ExtResource( 13 )
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource( 14 )
 
+[node name="Modifier" type="Label" parent="Node2D"]
+margin_left = 163.0
+margin_top = 168.0
+margin_right = 203.0
+margin_bottom = 182.0
+text = "Hello"
+
 [node name="Room" type="Sprite" parent="Node2D"]
 position = Vector2( 124, 94 )
 texture = ExtResource( 3 )
@@ -278,6 +287,11 @@ frames = SubResource( 15 )
 
 [node name="Bed" parent="Node2D" instance=ExtResource( 2 )]
 position = Vector2( 179, 141 )
+
+[node name="AchBed" type="Area2D" parent="Node2D/Bed" groups=["Achievement"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Bed/AchBed"]
+shape = SubResource( 57 )
 
 [node name="Sink" parent="Node2D" instance=ExtResource( 8 )]
 position = Vector2( 68, 57 )
@@ -362,10 +376,10 @@ position = Vector2( 44, 167 )
 script = ExtResource( 20 )
 
 [node name="Sleep" type="TextureButton" parent="Node2D/Buttons"]
-margin_left = 122.0
-margin_top = 5.0
-margin_right = 162.0
-margin_bottom = 45.0
+margin_left = 123.0
+margin_top = 15.0
+margin_right = 163.0
+margin_bottom = 55.0
 rect_pivot_offset = Vector2( 19, 24 )
 texture_normal = ExtResource( 19 )
 texture_pressed = ExtResource( 18 )
@@ -433,7 +447,7 @@ passby_press = true
 action = "ui_left"
 
 [node name="Jump" type="TouchScreenButton" parent="Node2D/Buttons"]
-position = Vector2( 93, 50 )
+position = Vector2( 89, 52 )
 normal = ExtResource( 19 )
 pressed = ExtResource( 18 )
 shape = SubResource( 27 )
@@ -456,6 +470,8 @@ __meta__ = {
 
 [node name="Ball" parent="Node2D" instance=ExtResource( 22 )]
 position = Vector2( 154, 96 )
+contacts_reported = 4
+contact_monitor = true
 angular_damp = 1.0
 
 [node name="Walls" type="Node" parent="."]
@@ -484,6 +500,8 @@ shape = SubResource( 55 )
 position = Vector2( 3, 78 )
 shape = SubResource( 55 )
 
+[connection signal="body_entered" from="Node2D/Bed/AchBed" to="Node2D" method="_on_AchBed_body_entered"]
+[connection signal="body_exited" from="Node2D/Bed/AchBed" to="Node2D" method="_on_AchBed_body_exited"]
 [connection signal="cat_sleep" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_sleep"]
 [connection signal="cat_wake" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_wake"]
 [connection signal="animation_finished" from="Node2D/Bars/Energy" to="Node2D" method="_on_Energy_animation_finished"]
@@ -491,3 +509,4 @@ shape = SubResource( 55 )
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
 [connection signal="body_entered" from="Node2D/Food" to="Node2D" method="_on_Food_body_entered"]
 [connection signal="pressed" from="Node2D/Buttons/Sleep" to="Node2D" method="_on_Sleep_pressed"]
+[connection signal="body_entered" from="Node2D/Ball" to="Node2D" method="_on_Ball_body_entered"]
