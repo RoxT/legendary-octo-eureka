@@ -11,15 +11,34 @@ const default_multiplier = 10
 const CAT = "PlayerCat"
 var ach_bed: bool = false
 const bed_multiplier = 0.2
+const BED_NAME = "Slept on Bed"
 var ach_ball: bool = false
 var ball_modifier = 0.2
+const BALL_NAME = "Played with Ball"
 
+var achieved = {
+	"BED_NAME" : false,
+	"BALL_NAME" : false
+}
+
+var config
+const FILE_NAME = "user://configs.cfg"
+const SECTION_ACHIEVEMENTS = "achievements"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	score = 0;
 	$Bars/Hunger.frame = 0
 	$Bars/Hunger.play()
+	config = ConfigFile.new()
+	var err = config.load(FILE_NAME)
+	if err != OK:
+		print(err)
+	achieved[BALL_NAME] = config.get_value(SECTION_ACHIEVEMENTS, BALL_NAME, false)
+	achieved[BED_NAME] = config.get_value(SECTION_ACHIEVEMENTS, BED_NAME, false)
+	print("Ball:",config.get_value(SECTION_ACHIEVEMENTS, BALL_NAME, false), 
+		"Bed:",config.get_value(SECTION_ACHIEVEMENTS, BED_NAME, false))
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -54,7 +73,15 @@ func _on_PlayerCat_cat_sleep():
 		sleeping = true
 		$Bars.sleep()
 		if ach_bed:
-			print("achievement unlocked: Bed")
+			achieved[BED_NAME] = true
+		if ach_ball:
+			achieved[BALL_NAME] = true
+		config.set_value(SECTION_ACHIEVEMENTS, BED_NAME, achieved[BED_NAME])
+		config.set_value(SECTION_ACHIEVEMENTS, BALL_NAME, achieved[BALL_NAME])
+		config.save(FILE_NAME)
+		print("Ball:",config.get_value(SECTION_ACHIEVEMENTS, BALL_NAME, false), 
+			"Bed:",config.get_value(SECTION_ACHIEVEMENTS, BED_NAME, false))
+		
 
 func _on_PlayerCat_cat_wake():
 	sleeping = false
@@ -75,8 +102,6 @@ func _on_AchBed_body_entered(body):
 	if body.name == CAT:
 		ach_bed = true
 
-		
-
 
 func _on_AchBed_body_exited(body):
 	print(body.name, " is off the bed")
@@ -86,4 +111,5 @@ func _on_AchBed_body_exited(body):
 
 func _on_Ball_body_entered(body):
 	if body.name == CAT:
+		$Ball/BallAudioStreamPlayer.play()
 		ach_ball = true
