@@ -1,6 +1,5 @@
 extends Node2D
 
-
 const DEFAULT = "default"
 onready var hunger_full = $Bars/Hunger.frames.get_frame_count(DEFAULT)-1
 
@@ -12,13 +11,13 @@ const CAT = "PlayerCat"
 
 class Achievement:
 	var name: String
-	var multiplier: int = 0
+	var multiplier: float
 	var active: bool = false
 	var achieved: bool = false
 	
-	func _init(name, multiplier):
-		self.name = name
-		self.multiplier = multiplier
+	func _init(new_name: String, new_multiplier: float):
+		self.name = new_name
+		self.multiplier = new_multiplier
 
 var slept_on_bed: Achievement
 var played_with_ball: Achievement
@@ -50,7 +49,7 @@ func _ready():
 
 func _process(_delta):
 	if sleeping:
-		var modifiers = 1 + (slept_on_bed.multiplier if slept_on_bed.active else 0) + (played_with_ball.multiplier if played_with_ball.active else 0)
+		var modifiers = 1 + (slept_on_bed.multiplier if slept_on_bed.active else 0.0) + (played_with_ball.multiplier if played_with_ball.active else 0.0)
 		score = score + default_multiplier * modifiers
 		change_debug_label($DebugLabel, score)
 		change_debug_label($Modifier, modifiers)
@@ -117,3 +116,13 @@ func _on_Ball_body_entered(body):
 	if body.name == CAT:
 		$Ball/BallAudioStreamPlayer.play()
 		played_with_ball.active = true
+
+
+func _on_PawsBtn_pressed():
+	get_tree().paused = true
+	$PauseDialog.show()
+	
+
+func _on_Button_button_down():
+	get_tree().paused = false
+	$PauseDialog.hide()
