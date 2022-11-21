@@ -19,6 +19,7 @@ class Achievement:
 		self.name = new_name
 		self.multiplier = new_multiplier
 
+var achievements = []
 var slept_on_bed: Achievement
 var played_with_ball: Achievement
 
@@ -29,7 +30,9 @@ const SECTION_ACHIEVEMENTS = "achievements"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	slept_on_bed = Achievement.new("slept_on_bed", 0.2)
+	achievements.append(slept_on_bed)
 	played_with_ball = Achievement.new("played_with_ball", 0.2)
+	achievements.append(played_with_ball)
 	score = 0;
 	$Bars/Hunger.frame = 0
 	$Bars/Hunger.play()
@@ -120,7 +123,15 @@ func _on_Ball_body_entered(body):
 
 func _on_PawsBtn_pressed():
 	get_tree().paused = true
+	var label:RichTextLabel = $PauseDialog/RichTextLabel
+	label.clear()
+	for a in achievements:
+		label.add_text(a.name)
+		label.add_text(": ")
+		label.add_text("Yes" if a.achieved == true else "No")
+		label.newline()
 	$PauseDialog.show()
+	
 	
 
 func _on_Button_button_down():
