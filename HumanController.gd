@@ -15,14 +15,12 @@ const TIRED = "tired"
 const CUTE = "cute"
 var emotions = [NEUTRAL, ANGRY, TIRED, CUTE]
 
-onready var human_sprite = $Node2D/Human/Body/AnimatedSprite
+onready var humanScene = get_node("Node2D/HumanLife")
+onready var human_sprite = $Node2D/HumanLife/Body/AnimatedSprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	var humanScene = preload("res://Human.tscn")
-	var instance = humanScene.instance()
-	$Node2D.add_child(instance)
 	
 func getDirection():
 	return directions[randi() % directions.size()]
@@ -51,7 +49,6 @@ func update_sprite():
 		emo = ""
 	
 	var formatName = "%s_%s"
-	$Node2D/DebugLabel.text = formatName % [dir, emo]
 	human_sprite.animation = formatName % [dir, emo]
 
 

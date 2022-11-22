@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://jump_furnature/Bed.tscn" type="PackedScene" id=2]
@@ -14,7 +14,7 @@
 [ext_resource path="res://textures/food.png" type="Texture" id=12]
 [ext_resource path="res://HumanController.gd" type="Script" id=13]
 [ext_resource path="res://LevelConroller.gd" type="Script" id=14]
-[ext_resource path="res://Human.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Human.gd" type="Script" id=15]
 [ext_resource path="res://Food.gd" type="Script" id=16]
 [ext_resource path="res://Bars.gd" type="Script" id=17]
 [ext_resource path="res://textures/pixel button down.png" type="Texture" id=18]
@@ -24,6 +24,7 @@
 [ext_resource path="res://Ball.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Ball.ogg" type="AudioStream" id=23]
 [ext_resource path="res://app_icon.png" type="Texture" id=24]
+[ext_resource path="res://resources/HumanSprites.tres" type="SpriteFrames" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 13 )
@@ -54,6 +55,9 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 8, 6 )
+
+[sub_resource type="RectangleShape2D" id=59]
+extents = Vector2( 6, 3.5 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16, 5 )
@@ -227,33 +231,28 @@ extents = Vector2( 80, 4.5 )
 extents = Vector2( 4, 59.5 )
 
 [node name="HumanController" type="Node2D"]
-position = Vector2( -44, -21 )
 script = ExtResource( 13 )
 
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource( 14 )
 
 [node name="Modifier" type="Label" parent="Node2D"]
-margin_left = 163.0
-margin_top = 168.0
-margin_right = 203.0
-margin_bottom = 182.0
+margin_left = 118.0
+margin_top = 147.0
+margin_right = 158.0
+margin_bottom = 161.0
 text = "Hello"
 
 [node name="Room" type="Sprite" parent="Node2D"]
-position = Vector2( 124, 94 )
-texture = ExtResource( 3 )
-
-[node name="Room2" type="Sprite" parent="Node2D"]
-position = Vector2( 124, 94 )
+position = Vector2( 80, 72 )
 texture = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
-position = Vector2( 141, 129 )
+position = Vector2( 96, 108 )
 zoom = Vector2( 10, 10 )
 
 [node name="Desk" type="StaticBody2D" parent="Node2D"]
-position = Vector2( 180, 57 )
+position = Vector2( 135, 36 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -278,7 +277,7 @@ position = Vector2( -35, 9.5 )
 shape = SubResource( 8 )
 
 [node name="Fridge" type="StaticBody2D" parent="Node2D"]
-position = Vector2( 94, 56 )
+position = Vector2( 49, 35 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -291,7 +290,7 @@ shape = SubResource( 3 )
 frames = SubResource( 15 )
 
 [node name="Bed" parent="Node2D" instance=ExtResource( 2 )]
-position = Vector2( 179, 141 )
+position = Vector2( 134, 120 )
 
 [node name="AchBed" type="Area2D" parent="Node2D/Bed" groups=["Achievement"]]
 
@@ -299,17 +298,17 @@ position = Vector2( 179, 141 )
 shape = SubResource( 57 )
 
 [node name="Sink" parent="Node2D" instance=ExtResource( 8 )]
-position = Vector2( 68, 57 )
+position = Vector2( 23, 36 )
 
 [node name="Couch" parent="Node2D" instance=ExtResource( 11 )]
-position = Vector2( 69, 113 )
+position = Vector2( 24, 92 )
 
 [node name="PlayerCat" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 134, 143 )
+position = Vector2( 89, 122 )
 collision_mask = 3
 
 [node name="Table" type="StaticBody2D" parent="Node2D"]
-position = Vector2( 155, 128 )
+position = Vector2( 110, 107 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -321,10 +320,43 @@ texture = ExtResource( 7 )
 position = Vector2( 0, 2 )
 shape = SubResource( 7 )
 
-[node name="Human" parent="Node2D" instance=ExtResource( 15 )]
+[node name="HumanLife" type="Node2D" parent="Node2D"]
+script = ExtResource( 15 )
+
+[node name="Body" type="Area2D" parent="Node2D/HumanLife"]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D/HumanLife/Body"]
+position = Vector2( 0, -7 )
+frames = ExtResource( 25 )
+animation = "up_"
+frame = 1
+playing = true
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/HumanLife/Body"]
+position = Vector2( 0, 1.5 )
+shape = SubResource( 59 )
+
+[node name="Fridge" type="Position2D" parent="Node2D/HumanLife"]
+position = Vector2( 25, 54 )
+
+[node name="Bed" type="Position2D" parent="Node2D/HumanLife"]
+position = Vector2( 134, 119 )
+
+[node name="Desk" type="Position2D" parent="Node2D/HumanLife"]
+position = Vector2( 135, 54 )
+
+[node name="Couch" type="Position2D" parent="Node2D/HumanLife"]
+position = Vector2( 24, 101 )
+
+[node name="Schedule" type="Timer" parent="Node2D/HumanLife"]
+wait_time = 3.0
+autostart = true
 
 [node name="TV" type="StaticBody2D" parent="Node2D"]
-position = Vector2( 68, 142 )
+position = Vector2( 23, 121 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -337,19 +369,16 @@ position = Vector2( 0, 11 )
 shape = SubResource( 6 )
 
 [node name="DebugLabel" type="Label" parent="Node2D"]
-margin_left = 45.0
-margin_top = 168.0
-margin_right = 86.0
-margin_bottom = 182.0
+margin_top = 147.0
+margin_right = 78.0
+margin_bottom = 161.0
 text = "Sleep to score"
 
 [node name="Bars" parent="Node2D" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 44.0
-margin_top = 21.0
-margin_right = 44.0
-margin_bottom = 21.0
+margin_left = -1.0
+margin_right = -1.0
 script = ExtResource( 17 )
 
 [node name="Energy" type="AnimatedSprite" parent="Node2D/Bars"]
@@ -363,7 +392,7 @@ position = Vector2( 41, 8 )
 frames = SubResource( 53 )
 
 [node name="Food" type="Area2D" parent="Node2D"]
-position = Vector2( 60, 75 )
+position = Vector2( 15, 54 )
 script = ExtResource( 16 )
 __meta__ = {
 "_edit_group_": true
@@ -377,7 +406,7 @@ position = Vector2( 0, -3 )
 frames = SubResource( 11 )
 
 [node name="Buttons" type="Position2D" parent="Node2D"]
-position = Vector2( 44, 167 )
+position = Vector2( -1, 146 )
 script = ExtResource( 20 )
 
 [node name="Sleep" type="TextureButton" parent="Node2D/Buttons"]
@@ -474,7 +503,7 @@ __meta__ = {
 }
 
 [node name="Ball" parent="Node2D" instance=ExtResource( 22 )]
-position = Vector2( 154, 96 )
+position = Vector2( 109, 75 )
 contacts_reported = 4
 contact_monitor = true
 angular_damp = 1.0
@@ -485,7 +514,7 @@ stream = ExtResource( 23 )
 [node name="SoundTimer" type="Timer" parent="Node2D/Ball"]
 
 [node name="PawsBtn" type="TouchScreenButton" parent="Node2D"]
-position = Vector2( 139, 184 )
+position = Vector2( 94, 163 )
 scale = Vector2( 0.104167, 0.104167 )
 normal = ExtResource( 24 )
 shape = SubResource( 58 )
@@ -555,6 +584,8 @@ shape = SubResource( 55 )
 [connection signal="body_exited" from="Node2D/Bed/AchBed" to="Node2D" method="_on_AchBed_body_exited"]
 [connection signal="cat_sleep" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_sleep"]
 [connection signal="cat_wake" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_wake"]
+[connection signal="timeout" from="Node2D/HumanLife/Schedule" to="." method="_on_Schedule_timeout"]
+[connection signal="timeout" from="Node2D/HumanLife/Schedule" to="Node2D/HumanLife" method="_on_Schedule_timeout"]
 [connection signal="animation_finished" from="Node2D/Bars/Energy" to="Node2D" method="_on_Energy_animation_finished"]
 [connection signal="animation_finished" from="Node2D/Bars/Hunger" to="Node2D" method="_on_Hunger_animation_finished"]
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]

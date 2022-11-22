@@ -1,9 +1,9 @@
-[gd_scene load_steps=35 format=2]
+[gd_resource type="SpriteFrames" load_steps=33 format=2]
 
 [ext_resource path="res://textures/humanforward.png" type="Texture" id=1]
 [ext_resource path="res://textures/humanrightwalk.png" type="Texture" id=2]
-[ext_resource path="res://textures/humansleep.png" type="Texture" id=3]
-[ext_resource path="res://textures/humanback.png" type="Texture" id=4]
+[ext_resource path="res://textures/humanback.png" type="Texture" id=3]
+[ext_resource path="res://textures/humansleep.png" type="Texture" id=4]
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
@@ -102,22 +102,22 @@ atlas = ExtResource( 2 )
 region = Rect2( 112, 0, 16, 24 )
 
 [sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 16, 24 )
 
 [sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 16, 0, 16, 24 )
 
 [sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 16, 24 )
 
 [sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 3 )
 region = Rect2( 16, 0, 16, 24 )
 
-[sub_resource type="SpriteFrames" id=3]
+[resource]
 animations = [ {
 "frames": [ SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
@@ -169,18 +169,3 @@ animations = [ {
 "name": "up_",
 "speed": 5.0
 } ]
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 7, 5.5 )
-
-[node name="Body" type="Area2D"]
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -7 )
-frames = SubResource( 3 )
-animation = "up_"
-playing = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 1.5 )
-shape = SubResource( 4 )
