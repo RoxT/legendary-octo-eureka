@@ -51,6 +51,5 @@ func update_sprite():
 	var formatName = "%s_%s"
 	human_sprite.animation = formatName % [dir, emo]
 
-
 func _on_Schedule_timeout():
 	update_sprite()

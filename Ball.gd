@@ -8,7 +8,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if linear_velocity.length() > threshold:
 		if abs(linear_velocity.x) > abs(linear_velocity.y):
 			$AnimatedSprite.play("side_roll")
