@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=5 format=2]
+
+[ext_resource path="res://Tiny.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Tinier.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[resource]
+default_font = SubResource( 1 )
+Label/colors/font_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+RichTextLabel/colors/default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+font/colors/font_color = Color( 0.266667, 0.266667, 0.160784, 1 )
+font/fonts/Tinier = SubResource( 2 )
+font/fonts/Tiny = SubResource( 1 )

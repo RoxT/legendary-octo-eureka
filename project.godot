@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="NapToWin"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://MainMenu.tscn"
 config/icon="res://textures/icon.png"
 
 [display]
@@ -46,7 +46,7 @@ singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
-theme/custom="res://Tiny.tres"
+theme/custom="res://resources/Tiny.tres"
 
 [importer_defaults]
 
