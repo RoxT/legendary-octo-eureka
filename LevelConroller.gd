@@ -3,6 +3,9 @@ extends Node2D
 const DEFAULT = "default"
 onready var hunger_full = $Bars/Hunger.frames.get_frame_count(DEFAULT)-1
 
+const TITLE_MUPLIPLIERS = "Multipliers this Round:"
+const TITLE_END_OF_DAY = "End of Day"
+
 var score: int
 var sleeping: bool = false
 
@@ -14,6 +17,7 @@ class Achievement:
 	var multiplier: float
 	var active: bool = false
 	var achieved: bool = false
+	var achieved_already:bool = false
 	
 	func _init(new_name: String, new_multiplier: float):
 		self.name = new_name
@@ -40,8 +44,8 @@ func _ready():
 	var err = config.load(FILE_NAME)
 	if err != OK:
 		print(err)
-	played_with_ball.achieved = config.get_value(SECTION_ACHIEVEMENTS, played_with_ball.name, false)
-	slept_on_bed.achieved = config.get_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, false)
+	played_with_ball.achieved_already = config.get_value(SECTION_ACHIEVEMENTS, played_with_ball.name, false)
+	slept_on_bed.achieved_already = config.get_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, false)
 	print("Ball:",config.get_value(SECTION_ACHIEVEMENTS, played_with_ball.name, false), 
 		"Bed:",config.get_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, false))
 	
@@ -52,7 +56,9 @@ func _ready():
 
 func _process(_delta):
 	if sleeping:
-		var modifiers = 1 + (slept_on_bed.multiplier if slept_on_bed.active else 0.0) + (played_with_ball.multiplier if played_with_ball.active else 0.0)
+		var slept_on_bed_mod: float = slept_on_bed.multiplier if slept_on_bed.active else 0.0
+		var played_with_ball_mod: float = played_with_ball.multiplier if played_with_ball.active else 0.0
+		var modifiers:float = 1 + slept_on_bed_mod + played_with_ball_mod
 		score = score + default_multiplier * modifiers
 		change_debug_label($DebugLabel, score)
 		change_debug_label($Modifier, modifiers)
@@ -123,17 +129,36 @@ func _on_Ball_body_entered(body):
 
 func _on_PawsBtn_pressed():
 	get_tree().paused = true
-	var label:RichTextLabel = $PauseDialog/RichTextLabel
+	var label:RichTextLabel = $TopUI/PauseDialog/RichTextLabel
 	label.clear()
 	for a in achievements:
 		label.add_text(a.name)
 		label.add_text(": ")
 		label.add_text("Yes" if a.achieved == true else "No")
 		label.newline()
-	$PauseDialog.show()
+	$TopUI/PauseDialog.show()
 	
-	
-
 func _on_Button_button_down():
 	get_tree().paused = false
-	$PauseDialog.hide()
+	$TopUI/PauseDialog.hide()
+
+func _on_EndRound_timeout():
+	get_tree().paused = true
+	var label:RichTextLabel = $TopUI/PauseDialog/RichTextLabel
+	get_multipliers_list(label)
+	$TopUI/PauseDialog.show()
+	
+func get_multipliers_list(label: RichTextLabel):
+	label.clear()
+	label.add_text(TITLE_END_OF_DAY)
+	label.newline()
+	label.add_text(TITLE_MUPLIPLIERS)
+	label.newline()
+	for a in achievements:
+		label.add_text(a.name)
+		label.add_text(": ")
+		label.add_text("Yes" if a.achieved == true else "No")
+		if a.achieved && ! a.achieved_already:
+			label.add_text(" NEW")
+		label.newline()
+		

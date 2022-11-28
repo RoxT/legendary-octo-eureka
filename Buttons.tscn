@@ -1,0 +1,134 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://textures/pixel button down.png" type="Texture" id=1]
+[ext_resource path="res://textures/pixel button up.png" type="Texture" id=2]
+[ext_resource path="res://textures/dpad.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 69, 0, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 138, 0, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 207, 0, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 276, 0, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 69, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 3 )
+region = Rect2( 69, 69, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 3 )
+region = Rect2( 138, 69, 69, 69 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 3 )
+region = Rect2( 207, 69, 69, 69 )
+
+[sub_resource type="SpriteFrames" id=25]
+animations = [ {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=26]
+
+[sub_resource type="CircleShape2D" id=27]
+radius = 16.0
+
+[node name="Buttons" type="Position2D"]
+position = Vector2( -1, 146 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 50, 56 )
+frames = SubResource( 25 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Up" type="TouchScreenButton" parent="."]
+position = Vector2( 39, 20 )
+shape = SubResource( 26 )
+passby_press = true
+action = "ui_up"
+
+[node name="Up_Left" type="TouchScreenButton" parent="."]
+position = Vector2( 19, 26 )
+shape = SubResource( 26 )
+passby_press = true
+action = "ui_up_left"
+
+[node name="Up_Right" type="TouchScreenButton" parent="."]
+position = Vector2( 59, 26 )
+shape = SubResource( 26 )
+passby_press = true
+action = "ui_up_right"
+
+[node name="Right" type="TouchScreenButton" parent="."]
+position = Vector2( 65, 46 )
+shape = SubResource( 26 )
+passby_press = true
+action = "ui_right"
+
+[node name="Down" type="TouchScreenButton" parent="."]
+position = Vector2( 40, 71 )
+shape = SubResource( 26 )
+passby_press = true
+action = "ui_down"
+
+[node name="Down_Left" type="TouchScreenButton" parent="."]
+position = Vector2( 20, 66 )
+shape = SubResource( 26 )
+passby_press = true
+action = "ui_down_left"
+
+[node name="Down_Right" type="TouchScreenButton" parent="."]
+position = Vector2( 60, 66 )
+shape = SubResource( 26 )
+passby_press = true
+action = "ui_down_right"
+
+[node name="Left" type="TouchScreenButton" parent="."]
+position = Vector2( 14, 46 )
+shape = SubResource( 26 )
+passby_press = true
+action = "ui_left"
+
+[node name="Jump" type="TouchScreenButton" parent="."]
+position = Vector2( 89, 52 )
+normal = ExtResource( 2 )
+pressed = ExtResource( 1 )
+shape = SubResource( 27 )
+passby_press = true
+action = "jump"
+
+[node name="Label" type="Label" parent="Jump"]
+anchor_left = -3.656
+anchor_top = -5.373
+anchor_right = -3.656
+anchor_bottom = -5.373
+margin_left = 115.992
+margin_top = 217.682
+margin_right = 159.992
+margin_bottom = 231.682
+text = "Jump"
+__meta__ = {
+"_edit_use_anchors_": true
+}

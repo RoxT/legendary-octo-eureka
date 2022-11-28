@@ -32,6 +32,8 @@ const max_duration = 4
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$EndRound.wait_time = a_day
+	$EndRound.start()
 	var seconds_to_sleep = hours_of_sleep * sec_per_hour
 	$BedTime.wait_time = a_day - seconds_to_sleep
 	$BedTime.start()
@@ -110,3 +112,4 @@ func _on_BedTime_timeout():
 	
 	path_i = 0
 	target = path[0].position
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://jump_furnature/Bed.tscn" type="PackedScene" id=2]
@@ -19,8 +19,7 @@
 [ext_resource path="res://Bars.gd" type="Script" id=17]
 [ext_resource path="res://textures/pixel button down.png" type="Texture" id=18]
 [ext_resource path="res://textures/pixel button up.png" type="Texture" id=19]
-[ext_resource path="res://Buttons.gd" type="Script" id=20]
-[ext_resource path="res://textures/dpad.png" type="Texture" id=21]
+[ext_resource path="res://Buttons.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Ball.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Ball.ogg" type="AudioStream" id=23]
 [ext_resource path="res://app_icon.png" type="Texture" id=24]
@@ -169,55 +168,6 @@ animations = [ {
 "name": "default",
 "speed": 0.5
 } ]
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 21 )
-region = Rect2( 0, 0, 69, 69 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 21 )
-region = Rect2( 69, 0, 69, 69 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 21 )
-region = Rect2( 138, 0, 69, 69 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 21 )
-region = Rect2( 207, 0, 69, 69 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 21 )
-region = Rect2( 276, 0, 69, 69 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 21 )
-region = Rect2( 0, 69, 69, 69 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 21 )
-region = Rect2( 69, 69, 69, 69 )
-
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 21 )
-region = Rect2( 138, 69, 69, 69 )
-
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 21 )
-region = Rect2( 207, 69, 69, 69 )
-
-[sub_resource type="SpriteFrames" id=25]
-animations = [ {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
-"loop": false,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=26]
-
-[sub_resource type="CircleShape2D" id=27]
-radius = 16.0
 
 [sub_resource type="CircleShape2D" id=58]
 radius = 103.09
@@ -369,6 +319,8 @@ autostart = true
 one_shot = true
 autostart = true
 
+[node name="EndRound" type="Timer" parent="Node2D/HumanLife"]
+
 [node name="TV" type="StaticBody2D" parent="Node2D"]
 position = Vector2( 23, 121 )
 __meta__ = {
@@ -419,102 +371,23 @@ shape = SubResource( 12 )
 position = Vector2( 0, -3 )
 frames = SubResource( 11 )
 
-[node name="Buttons" type="Position2D" parent="Node2D"]
-position = Vector2( -1, 146 )
-script = ExtResource( 20 )
-
-[node name="Sleep" type="TextureButton" parent="Node2D/Buttons"]
-margin_left = 123.0
-margin_top = 15.0
-margin_right = 163.0
-margin_bottom = 55.0
+[node name="Sleep" type="TextureButton" parent="Node2D"]
+margin_left = 122.0
+margin_top = 161.0
+margin_right = 162.0
+margin_bottom = 201.0
 rect_pivot_offset = Vector2( 19, 24 )
 texture_normal = ExtResource( 19 )
 texture_pressed = ExtResource( 18 )
 
-[node name="Label" type="Label" parent="Node2D/Buttons/Sleep"]
+[node name="Label" type="Label" parent="Node2D/Sleep"]
 margin_left = -2.0
 margin_top = 31.0
 margin_right = 38.0
 margin_bottom = 45.0
 text = "Sleep"
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D/Buttons"]
-position = Vector2( 50, 56 )
-frames = SubResource( 25 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Up" type="TouchScreenButton" parent="Node2D/Buttons"]
-position = Vector2( 39, 20 )
-shape = SubResource( 26 )
-passby_press = true
-action = "ui_up"
-
-[node name="Up_Left" type="TouchScreenButton" parent="Node2D/Buttons"]
-position = Vector2( 19, 26 )
-shape = SubResource( 26 )
-passby_press = true
-action = "ui_up_left"
-
-[node name="Up_Right" type="TouchScreenButton" parent="Node2D/Buttons"]
-position = Vector2( 59, 26 )
-shape = SubResource( 26 )
-passby_press = true
-action = "ui_up_right"
-
-[node name="Right" type="TouchScreenButton" parent="Node2D/Buttons"]
-position = Vector2( 65, 46 )
-shape = SubResource( 26 )
-passby_press = true
-action = "ui_right"
-
-[node name="Down" type="TouchScreenButton" parent="Node2D/Buttons"]
-position = Vector2( 40, 71 )
-shape = SubResource( 26 )
-passby_press = true
-action = "ui_down"
-
-[node name="Down_Left" type="TouchScreenButton" parent="Node2D/Buttons"]
-position = Vector2( 20, 66 )
-shape = SubResource( 26 )
-passby_press = true
-action = "ui_down_left"
-
-[node name="Down_Right" type="TouchScreenButton" parent="Node2D/Buttons"]
-position = Vector2( 60, 66 )
-shape = SubResource( 26 )
-passby_press = true
-action = "ui_down_right"
-
-[node name="Left" type="TouchScreenButton" parent="Node2D/Buttons"]
-position = Vector2( 14, 46 )
-shape = SubResource( 26 )
-passby_press = true
-action = "ui_left"
-
-[node name="Jump" type="TouchScreenButton" parent="Node2D/Buttons"]
-position = Vector2( 89, 52 )
-normal = ExtResource( 19 )
-pressed = ExtResource( 18 )
-shape = SubResource( 27 )
-passby_press = true
-action = "jump"
-
-[node name="Label" type="Label" parent="Node2D/Buttons/Jump"]
-anchor_left = -3.656
-anchor_top = -5.373
-anchor_right = -3.656
-anchor_bottom = -5.373
-margin_left = 115.992
-margin_top = 217.682
-margin_right = 159.992
-margin_bottom = 231.682
-text = "Jump"
-__meta__ = {
-"_edit_use_anchors_": true
-}
+[node name="Buttons" parent="Node2D" instance=ExtResource( 20 )]
 
 [node name="Ball" parent="Node2D" instance=ExtResource( 22 )]
 position = Vector2( 109, 75 )
@@ -533,7 +406,10 @@ scale = Vector2( 0.104167, 0.104167 )
 normal = ExtResource( 24 )
 shape = SubResource( 58 )
 
-[node name="PauseDialog" type="PopupDialog" parent="Node2D"]
+[node name="TopUI" type="CanvasLayer" parent="Node2D"]
+layer = 10
+
+[node name="PauseDialog" type="PopupDialog" parent="Node2D/TopUI"]
 pause_mode = 2
 margin_right = 156.0
 margin_bottom = 139.0
@@ -541,12 +417,14 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Node2D/PauseDialog"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Node2D/TopUI/PauseDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 5.0
+margin_right = 5.0
 text = "Achievements: "
 
-[node name="Button" type="Button" parent="Node2D/PauseDialog"]
+[node name="Button" type="Button" parent="Node2D/TopUI/PauseDialog"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -557,7 +435,7 @@ margin_right = -5.0
 margin_bottom = 15.0
 text = "Paused"
 
-[node name="ResetBtn" type="Button" parent="Node2D/PauseDialog"]
+[node name="ResetBtn" type="Button" parent="Node2D/TopUI/PauseDialog"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -601,11 +479,12 @@ shape = SubResource( 55 )
 [connection signal="timeout" from="Node2D/HumanLife/Schedule" to="." method="_on_Schedule_timeout"]
 [connection signal="timeout" from="Node2D/HumanLife/Schedule" to="Node2D/HumanLife" method="_on_Schedule_timeout"]
 [connection signal="timeout" from="Node2D/HumanLife/BedTime" to="Node2D/HumanLife" method="_on_BedTime_timeout"]
+[connection signal="timeout" from="Node2D/HumanLife/EndRound" to="Node2D" method="_on_EndRound_timeout"]
 [connection signal="animation_finished" from="Node2D/Bars/Energy" to="Node2D" method="_on_Energy_animation_finished"]
 [connection signal="animation_finished" from="Node2D/Bars/Hunger" to="Node2D" method="_on_Hunger_animation_finished"]
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
 [connection signal="body_entered" from="Node2D/Food" to="Node2D" method="_on_Food_body_entered"]
-[connection signal="pressed" from="Node2D/Buttons/Sleep" to="Node2D" method="_on_Sleep_pressed"]
+[connection signal="pressed" from="Node2D/Sleep" to="Node2D" method="_on_Sleep_pressed"]
 [connection signal="body_entered" from="Node2D/Ball" to="Node2D" method="_on_Ball_body_entered"]
 [connection signal="pressed" from="Node2D/PawsBtn" to="Node2D" method="_on_PawsBtn_pressed"]
-[connection signal="button_down" from="Node2D/PauseDialog/Button" to="Node2D" method="_on_Button_button_down"]
+[connection signal="button_down" from="Node2D/TopUI/PauseDialog/Button" to="Node2D" method="_on_Button_button_down"]
