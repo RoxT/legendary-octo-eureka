@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://jump_furnature/Bed.tscn" type="PackedScene" id=2]
@@ -54,7 +54,10 @@ animations = [ {
 extents = Vector2( 10, 9.5 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 8, 6 )
+extents = Vector2( 8.5, 6 )
+
+[sub_resource type="RectangleShape2D" id=60]
+extents = Vector2( 4.5, 2 )
 
 [sub_resource type="RectangleShape2D" id=59]
 extents = Vector2( 6, 3.5 )
@@ -255,10 +258,6 @@ position = Vector2( 23, 36 )
 [node name="Couch" parent="Node2D" instance=ExtResource( 11 )]
 position = Vector2( 24, 92 )
 
-[node name="PlayerCat" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 89, 122 )
-collision_mask = 3
-
 [node name="Table" type="StaticBody2D" parent="Node2D"]
 position = Vector2( 110, 107 )
 __meta__ = {
@@ -269,8 +268,16 @@ __meta__ = {
 texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Table"]
-position = Vector2( 0, 2 )
+position = Vector2( -0.5, 2 )
 shape = SubResource( 7 )
+
+[node name="Lamp" type="CollisionShape2D" parent="Node2D/Table"]
+position = Vector2( 1.5, -6 )
+shape = SubResource( 60 )
+
+[node name="PlayerCat" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 89, 122 )
+collision_mask = 3
 
 [node name="HumanLife" type="Node2D" parent="Node2D"]
 script = ExtResource( 15 )
@@ -281,7 +288,6 @@ script = ExtResource( 15 )
 position = Vector2( 0, -7 )
 frames = ExtResource( 25 )
 animation = "up_"
-frame = 1
 playing = true
 __meta__ = {
 "_editor_description_": ""
