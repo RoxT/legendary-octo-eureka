@@ -9,7 +9,7 @@ const TITLE_END_OF_DAY = "End of Day"
 var score: int
 var sleeping: bool = false
 
-const default_multiplier = 10
+const default_multiplier = 10.0
 const CAT = "PlayerCat"
 
 class Achievement:
@@ -33,6 +33,7 @@ const SECTION_ACHIEVEMENTS = "achievements"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	slept_on_bed = Achievement.new("slept_on_bed", 0.2)
 	achievements.append(slept_on_bed)
 	played_with_ball = Achievement.new("played_with_ball", 0.2)
@@ -126,6 +127,9 @@ func _on_Ball_body_entered(body):
 		$Ball/BallAudioStreamPlayer.play()
 		played_with_ball.active = true
 
+func _on_Meow_pressed():
+	$PlayerCat.meow()
+	$HumanLife.meow()
 
 func _on_PawsBtn_pressed():
 	get_tree().paused = true

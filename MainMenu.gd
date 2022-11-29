@@ -22,7 +22,7 @@ func _ready():
 		print(err)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_up"):
 		items[index].remove_child(arrow)
 		index = (index-1) % items.size()
@@ -34,8 +34,12 @@ func _process(delta):
 	if Input.is_action_just_pressed("jump"):
 		if $Items.is_visible():
 			match index:
-				0: get_tree().change_scene(MAIN_SCENE_PATH)	
-				1: show_achievements()
+				0: 
+					var err = get_tree().change_scene(MAIN_SCENE_PATH)
+					if err != OK:
+						print(err)
+				1: 
+					show_achievements()
 		else:
 			$Achievements.visible = false
 			$Items.visible = true

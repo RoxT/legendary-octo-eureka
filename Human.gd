@@ -3,6 +3,8 @@ extends Node2D
 export var speed: int = 50
 export var hours_of_sleep = 3
 
+#Position
+
 onready var bed_to_fridge = [$Bed_Fridge, $Fridge, $Food, $Fridge]
 onready var bed_to_desk = [$Desk]
 onready var bed_to_couch = [$Bed_Couch, $Couch]
@@ -22,28 +24,36 @@ onready var timer: Timer = $Schedule
 var path: Array
 var path_i: int
 
-onready var old_activity:Position2D = $Bed
+onready var current_activity:Position2D = $Bed
+var special_activity = null
 var target
 
-const a_day: int = 72 #Multiples of 24 = 24, 48, 72, 96, 120
-var sec_per_hour = a_day/24
-const min_duration = 2
-const max_duration = 4
+#Feelings
+
+var annoyed: int = 0
+
+#Time
+
+const A_DAY: int = 72 #Multiples of 24 = 24, 48, 72, 96, 120
+var sec_per_hour:int = A_DAY/24
+const MIN_DURATION = 2
+const MAX_DURATION = 4
+const SPECIAL_DURATION = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$EndRound.wait_time = a_day
+	$EndRound.wait_time = A_DAY
 	$EndRound.start()
 	var seconds_to_sleep = hours_of_sleep * sec_per_hour
-	$BedTime.wait_time = a_day - seconds_to_sleep
+	$BedTime.wait_time = A_DAY - seconds_to_sleep
 	$BedTime.start()
 	timer.wait_time = seconds_to_sleep
 	timer.start()
 
 	$Body.position = $Bed.position
-	print("Second per day: ", a_day, "   Sleep time (hrs): ", hours_of_sleep, " * 2")
+	print("Second per day: ", A_DAY, "   Sleep time (hrs): ", hours_of_sleep, " * 2")
 	print("sleep timer: ", $BedTime.wait_time)
-	print("hours per activity: ", min_duration, " to ", max_duration)
+	print("hours per activity: ", MIN_DURATION, " to ", MAX_DURATION)
 
 func _process(delta):
 	if target != null:
@@ -51,65 +61,74 @@ func _process(delta):
 		var distance = $Body.position.distance_to(target)
 		if  distance <= 1:
 			update_target()
-			
-func new_activity():
-	randomize()
-	var duration_sec = (randi() % (max_duration - 1) + min_duration) * sec_per_hour
-	var activity = activities[randi() % activities.size()]
-	print("chose ", activity.name, " for ", duration_sec, "s   (", duration_sec/sec_per_hour, "hrs) at ", $BedTime.time_left)
+
+func meow():
+	annoyed = annoyed + 1
+	if annoyed >=3:
+		special_activity = $Fridge
+		$Special.wait_time = SPECIAL_DURATION * sec_per_hour
+		annoyed = 0
+		set_path(current_activity, special_activity)
 	
-	if old_activity == $Desk:
-		if activity == $Fridge:
+func set_path(from_activity:Position2D, to_activity:Position2D):
+	if from_activity == $Desk:
+		if to_activity == $Fridge:
 			path = desk_to_fridge
-		elif activity == $Couch:
+		elif to_activity == $Couch:
 			path = desk_to_couch
+		elif to_activity == $Bed:
+			path = desk_to_bed
 	
-	elif old_activity == $Fridge:
-		if activity == $Desk:
+	elif from_activity == $Fridge:
+		if to_activity == $Desk:
 			path = fridge_to_desk
-		elif activity == $Couch:
+		elif to_activity == $Couch:
 			path = fridge_to_couch
+		elif to_activity == $Bed:
+			path = fridge_to_bed
 	
-	elif old_activity == $Couch:
-		if activity == $Desk:
+	elif from_activity == $Couch:
+		if to_activity == $Desk:
 			path = couch_to_desk
-		elif activity == $Fridge:
+		elif to_activity == $Fridge:
 			path = couch_to_fridge
+		elif to_activity == $Bed:
+			path = couch_to_bed
 	
-	elif old_activity == $Bed:
-		if activity == $Desk:
+	elif from_activity == $Bed:
+		if to_activity == $Desk:
 			path = bed_to_desk
-		elif activity == $Fridge:
+		elif to_activity == $Fridge:
 			path = bed_to_fridge
-		elif activity == $Couch:
+		elif to_activity == $Couch:
 			path = bed_to_couch
 	
-	old_activity = activity
 	path_i = 0
 	target = path[0].position
-	timer.wait_time = duration_sec
-	timer.start()
 
 func _on_Schedule_timeout():
-	new_activity()
+	randomize()
+	var activity = activities[randi() % activities.size()]
+	var duration_sec = (randi() % (MAX_DURATION - 1) + MIN_DURATION) * sec_per_hour
+	set_path(current_activity, activity)
+	current_activity = activity
+	timer.wait_time = duration_sec
+	timer.start()
+	print("chose ", activity.name, " for ", duration_sec, "s   (", duration_sec/sec_per_hour, "hrs) at ", $BedTime.time_left)
+	
 	
 func update_target():
 	path_i = path_i + 1
 	if path_i > path.size()-1:
 		target = null
+		if special_activity != null:
+			set_path(special_activity, current_activity)
+			special_activity = null
 	else:
 		target = path[path_i].position
 	
 func _on_BedTime_timeout():
 	print("time for bed")
 	timer.stop()
-	if old_activity == $Desk:
-		path = desk_to_bed
-	elif old_activity == $Couch:
-		path = couch_to_bed
-	elif old_activity == $Fridge:
-		path = fridge_to_bed
-	
-	path_i = 0
-	target = path[0].position
+	set_path(current_activity, $Bed)
 

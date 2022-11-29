@@ -59,6 +59,9 @@ func _on_AnimatedSprite_animation_finished():
 		
 func eat():
 	sprite.animation = "eat"
+	
+func meow():
+	$AudioStreamPlayer2D.play()
 
 func check_input_and_run(delta):
 	var x = 0;

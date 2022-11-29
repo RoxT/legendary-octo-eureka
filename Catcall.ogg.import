@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Catcall.ogg-bc078f3c15793cf3896e21611381d45a.oggstr"
+
+[deps]
+
+source_file="res://Catcall.ogg"
+dest_files=[ "res://.import/Catcall.ogg-bc078f3c15793cf3896e21611381d45a.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
