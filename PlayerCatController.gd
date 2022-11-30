@@ -4,6 +4,7 @@ export var speed: int = 100;
 export var jump_modifier = 1.5
 export var reticule_modifier = 15
 onready var sprite = get_node("AnimatedSprite")
+const BALL = "Ball"
 var direction: Vector2 = Vector2(1, 0)
 var area_clear: bool = false
 var jump_target: Vector2
@@ -105,9 +106,10 @@ func layerJump(collision):
 			if furnature.has_node("JumpTo"):
 				position = furnature.get_node("JumpTo").position	#Jumping
 
-func _on_Area2D_body_entered(_body):
-	area_clear = false
-	$CollisionShape2D/Area2D/Debug/ColorRect.visible = true
+func _on_Area2D_body_entered(body):
+	if body.name != BALL:
+		area_clear = false
+		$CollisionShape2D/Area2D/Debug/ColorRect.visible = true
 
 
 func _on_Area2D_body_exited(_body):
