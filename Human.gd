@@ -42,6 +42,7 @@ const SPECIAL_DURATION = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	assert(A_DAY%24 == 0, "O day must be a multiple of 24")
 	$EndRound.wait_time = A_DAY
 	$EndRound.start()
 	var seconds_to_sleep = hours_of_sleep * sec_per_hour
@@ -62,8 +63,9 @@ func _process(delta):
 		if  distance <= 1:
 			update_target()
 
-func meow():
+func meow(cat:Vector2):
 	annoyed = annoyed + 1
+	$Body/HumanSprite.face(cat, $Body/HumanSprite.ANGRY)
 	if annoyed >=3:
 		special_activity = $Fridge
 		$Special.wait_time = SPECIAL_DURATION * sec_per_hour

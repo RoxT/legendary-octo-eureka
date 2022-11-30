@@ -333,6 +333,10 @@ autostart = true
 
 [node name="EndRound" type="Timer" parent="Node2D/HumanLife"]
 
+[node name="Distracted" type="Timer" parent="Node2D/HumanLife"]
+wait_time = 0.5
+one_shot = true
+
 [node name="TV" type="StaticBody2D" parent="Node2D"]
 position = Vector2( 23, 121 )
 __meta__ = {
@@ -451,6 +455,17 @@ margin_left = 5.0
 margin_right = 5.0
 text = "Achievements: "
 
+[node name="ResetBtn" type="Button" parent="Node2D/TopUI/PauseDialog"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -5.0
+margin_right = -2.0
+margin_bottom = 15.0
+text = "Continue"
+
 [node name="Button" type="Button" parent="Node2D/TopUI/PauseDialog"]
 anchor_left = 0.5
 anchor_top = 1.0
@@ -461,17 +476,6 @@ margin_top = -5.0
 margin_right = -5.0
 margin_bottom = 15.0
 text = "Paused"
-
-[node name="ResetBtn" type="Button" parent="Node2D/TopUI/PauseDialog"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -50.0
-margin_top = -5.0
-margin_right = -2.0
-margin_bottom = 15.0
-text = "Reset"
 
 [node name="Walls" type="Node" parent="."]
 
@@ -507,6 +511,7 @@ shape = SubResource( 55 )
 [connection signal="timeout" from="Node2D/HumanLife/Schedule" to="Node2D/HumanLife/Body/HumanSprite" method="_on_Schedule_timeout"]
 [connection signal="timeout" from="Node2D/HumanLife/BedTime" to="Node2D/HumanLife" method="_on_BedTime_timeout"]
 [connection signal="timeout" from="Node2D/HumanLife/EndRound" to="Node2D" method="_on_EndRound_timeout"]
+[connection signal="timeout" from="Node2D/HumanLife/Distracted" to="Node2D/HumanLife/Body/HumanSprite" method="_on_Distracted_timeout"]
 [connection signal="animation_finished" from="Node2D/Bars/Energy" to="Node2D" method="_on_Energy_animation_finished"]
 [connection signal="animation_finished" from="Node2D/Bars/Hunger" to="Node2D" method="_on_Hunger_animation_finished"]
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
@@ -515,4 +520,5 @@ shape = SubResource( 55 )
 [connection signal="pressed" from="Node2D/Sleep" to="Node2D" method="_on_Sleep_pressed"]
 [connection signal="body_entered" from="Node2D/Ball" to="Node2D" method="_on_Ball_body_entered"]
 [connection signal="pressed" from="Node2D/PawsBtn" to="Node2D" method="_on_PawsBtn_pressed"]
+[connection signal="button_down" from="Node2D/TopUI/PauseDialog/ResetBtn" to="Node2D" method="_on_ResetBtn_button_down"]
 [connection signal="button_down" from="Node2D/TopUI/PauseDialog/Button" to="Node2D" method="_on_Button_button_down"]

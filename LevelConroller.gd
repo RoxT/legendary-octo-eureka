@@ -1,6 +1,7 @@
 extends Node2D
 
 const DEFAULT = "default"
+const MAIN_MENU_SCENE = "res://MainMenu.tscn"
 onready var hunger_full = $Bars/Hunger.frames.get_frame_count(DEFAULT)-1
 
 const TITLE_MUPLIPLIERS = "Multipliers this Round:"
@@ -89,11 +90,6 @@ func _on_PlayerCat_cat_sleep():
 			slept_on_bed.achieved = true
 		if played_with_ball.active:
 			played_with_ball.achieved = true
-		config.set_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, slept_on_bed.achieved)
-		config.set_value(SECTION_ACHIEVEMENTS, played_with_ball.name, played_with_ball.achieved)
-		config.save(FILE_NAME)
-		print("Ball:",config.get_value(SECTION_ACHIEVEMENTS, played_with_ball.name, false), 
-			"Bed:",config.get_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, false))
 		
 
 func _on_PlayerCat_cat_wake():
@@ -129,7 +125,7 @@ func _on_Ball_body_entered(body):
 
 func _on_Meow_pressed():
 	$PlayerCat.meow()
-	$HumanLife.meow()
+	$HumanLife.meow($PlayerCat.position)
 
 func _on_PawsBtn_pressed():
 	get_tree().paused = true
@@ -146,7 +142,19 @@ func _on_Button_button_down():
 	get_tree().paused = false
 	$TopUI/PauseDialog.hide()
 
+func _on_ResetBtn_button_down():
+	get_tree().paused = false
+	var err = get_tree().change_scene(MAIN_MENU_SCENE)
+	if err != OK:
+		print(err)
+
 func _on_EndRound_timeout():
+	config.set_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, slept_on_bed.achieved)
+	config.set_value(SECTION_ACHIEVEMENTS, played_with_ball.name, played_with_ball.achieved)
+	config.save(FILE_NAME)
+	print("Ball:",config.get_value(SECTION_ACHIEVEMENTS, played_with_ball.name, false), 
+		"Bed:",config.get_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, false))
+		
 	get_tree().paused = true
 	var label:RichTextLabel = $TopUI/PauseDialog/RichTextLabel
 	get_multipliers_list(label)
@@ -166,3 +174,5 @@ func get_multipliers_list(label: RichTextLabel):
 			label.add_text(" NEW")
 		label.newline()
 		
+
+
