@@ -27,6 +27,7 @@ class Achievement:
 var achievements = []
 var slept_on_bed: Achievement
 var played_with_ball: Achievement
+var brushed_against: Achievement
 
 var config
 const FILE_NAME = "user://configs.cfg"
@@ -39,6 +40,8 @@ func _ready():
 	achievements.append(slept_on_bed)
 	played_with_ball = Achievement.new("played_with_ball", 0.2)
 	achievements.append(played_with_ball)
+	brushed_against = Achievement.new("brushed_against", 0.2)
+	achievements.append(brushed_against)
 	score = 0;
 	$Bars/Hunger.frame = 0
 	$Bars/Hunger.play()
@@ -48,8 +51,7 @@ func _ready():
 		print(err)
 	played_with_ball.achieved_already = config.get_value(SECTION_ACHIEVEMENTS, played_with_ball.name, false)
 	slept_on_bed.achieved_already = config.get_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, false)
-	print("Ball:",config.get_value(SECTION_ACHIEVEMENTS, played_with_ball.name, false), 
-		"Bed:",config.get_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, false))
+	brushed_against.achieved_already = config.get_value(SECTION_ACHIEVEMENTS, brushed_against.name, false)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,9 +60,10 @@ func _ready():
 
 func _process(_delta):
 	if sleeping:
-		var slept_on_bed_mod: float = slept_on_bed.multiplier if slept_on_bed.active else 0.0
-		var played_with_ball_mod: float = played_with_ball.multiplier if played_with_ball.active else 0.0
-		var modifiers:float = 1 + slept_on_bed_mod + played_with_ball_mod
+		var modifiers = 1
+		modifiers = modifiers + (slept_on_bed.multiplier if slept_on_bed.active else 0.0)
+		modifiers = modifiers + (played_with_ball.multiplier if played_with_ball.active else 0.0)
+		modifiers = modifiers + (brushed_against.multiplier if brushed_against.active else 0.0)
 		score = score + default_multiplier * modifiers
 		change_debug_label($DebugLabel, score)
 		change_debug_label($Modifier, modifiers)
@@ -90,12 +93,15 @@ func _on_PlayerCat_cat_sleep():
 			slept_on_bed.achieved = true
 		if played_with_ball.active:
 			played_with_ball.achieved = true
+		if brushed_against.active:
+			brushed_against.achieved = true
 		
 
 func _on_PlayerCat_cat_wake():
 	sleeping = false
 	$Bars.wake()
 	played_with_ball.active = false
+	brushed_against.active = false
 
 func _on_Energy_animation_finished():
 	if sleeping:
@@ -122,6 +128,11 @@ func _on_Ball_body_entered(body):
 	if body.name == CAT:
 		$Ball/BallAudioStreamPlayer.play()
 		played_with_ball.active = true
+
+func _on_Human_Body_body_entered(body):
+	if body.name == CAT && $HumanLife.has_time_for_cute():
+		brushed_against.active = true
+		$HumanLife.brushed_against(body.position)
 
 func _on_Meow_pressed():
 	$PlayerCat.meow()
@@ -151,9 +162,8 @@ func _on_ResetBtn_button_down():
 func _on_EndRound_timeout():
 	config.set_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, slept_on_bed.achieved)
 	config.set_value(SECTION_ACHIEVEMENTS, played_with_ball.name, played_with_ball.achieved)
+	config.set_value(SECTION_ACHIEVEMENTS, brushed_against.name, brushed_against.achieved)
 	config.save(FILE_NAME)
-	print("Ball:",config.get_value(SECTION_ACHIEVEMENTS, played_with_ball.name, false), 
-		"Bed:",config.get_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, false))
 		
 	get_tree().paused = true
 	var label:RichTextLabel = $TopUI/PauseDialog/RichTextLabel
@@ -173,6 +183,4 @@ func get_multipliers_list(label: RichTextLabel):
 		if a.achieved && ! a.achieved_already:
 			label.add_text(" NEW")
 		label.newline()
-		
-
 

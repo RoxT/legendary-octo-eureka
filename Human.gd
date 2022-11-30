@@ -5,18 +5,18 @@ export var hours_of_sleep = 3
 
 #Position
 
-onready var bed_to_fridge = [$Bed_Fridge, $Fridge, $Food, $Fridge]
+onready var bed_to_fridge = [$South_Point, $Fridge, $Food, $Fridge]
 onready var bed_to_desk = [$Desk]
-onready var bed_to_couch = [$Bed_Couch, $Couch]
+onready var bed_to_couch = [$South_Point, $To_Couch, $Couch]
 onready var desk_to_fridge = [$Fridge, $Food, $Fridge]
 onready var desk_to_bed = [$Bed]
-onready var desk_to_couch = [$Couch]
-onready var couch_to_fridge = [$Fridge, $Food, $Fridge]
-onready var couch_to_bed = [$Bed_Couch, $Bed]
-onready var couch_to_desk = [$Desk]
+onready var desk_to_couch = [$South_Point, $To_Couch, $Couch]
+onready var couch_to_fridge = [$To_Couch, $South_Point, $Fridge, $Food, $Fridge]
+onready var couch_to_bed = [$To_Couch, $South_Point, $Bed]
+onready var couch_to_desk = [$To_Couch, $South_Point, $Desk]
 onready var fridge_to_desk = [$Desk]
-onready var fridge_to_couch = [$Couch]
-onready var fridge_to_bed = [$Bed_Fridge, $Bed]
+onready var fridge_to_couch = [$South_Point, $To_Couch, $Couch]
+onready var fridge_to_bed = [$To_Couch, $Bed]
 
 onready var activities = [$Desk, $Fridge, $Couch]
 onready var timer: Timer = $Schedule
@@ -63,9 +63,18 @@ func _process(delta):
 		if  distance <= 1:
 			update_target()
 
+func has_time_for_cute()->bool:
+	return current_activity != $Bed && current_activity != $Desk
+			
+func brushed_against(cat:Vector2):
+	$Body/HumanSprite.distract(cat, $Body/HumanSprite.CUTE)
+
 func meow(cat:Vector2):
 	annoyed = annoyed + 1
-	$Body/HumanSprite.face(cat, $Body/HumanSprite.ANGRY)
+	if annoyed == 1:
+		$Body/HumanSprite.distract(cat, $Body/HumanSprite.CUTE)
+	else:
+		$Body/HumanSprite.distract(cat, $Body/HumanSprite.ANGRY)
 	if annoyed >=3:
 		special_activity = $Fridge
 		$Special.wait_time = SPECIAL_DURATION * sec_per_hour
@@ -107,6 +116,8 @@ func set_path(from_activity:Position2D, to_activity:Position2D):
 	
 	path_i = 0
 	target = path[0].position
+	$Body/HumanSprite.turn_towards(target)
+	$Body/HumanSprite.play()
 
 func _on_Schedule_timeout():
 	randomize()
@@ -122,12 +133,21 @@ func _on_Schedule_timeout():
 func update_target():
 	path_i = path_i + 1
 	if path_i > path.size()-1:
+		if current_activity == $Fridge:
+			$Body/HumanSprite.face($Body/HumanSprite.UP)
+		elif current_activity == $Couch:
+			$Body/HumanSprite.face($Body/HumanSprite.DOWN)
+		elif current_activity == $Desk:
+			$Body/HumanSprite.face($Body/HumanSprite.UP)
 		target = null
 		if special_activity != null:
 			set_path(special_activity, current_activity)
 			special_activity = null
+		else:
+			$Body/HumanSprite.stop()
 	else:
 		target = path[path_i].position
+		$Body/HumanSprite.turn_towards(target)
 	
 func _on_BedTime_timeout():
 	print("time for bed")

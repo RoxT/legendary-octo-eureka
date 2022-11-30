@@ -297,6 +297,10 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="Distracted" type="Timer" parent="Node2D/HumanLife/Body/HumanSprite"]
+wait_time = 1.5
+one_shot = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/HumanLife/Body"]
 position = Vector2( 0, 1.5 )
 shape = SubResource( 59 )
@@ -304,10 +308,10 @@ shape = SubResource( 59 )
 [node name="Food" type="Position2D" parent="Node2D/HumanLife"]
 position = Vector2( 25, 54 )
 
-[node name="Bed_Fridge" type="Position2D" parent="Node2D/HumanLife"]
+[node name="South_Point" type="Position2D" parent="Node2D/HumanLife"]
 position = Vector2( 52, 119 )
 
-[node name="Bed_Couch" type="Position2D" parent="Node2D/HumanLife"]
+[node name="To_Couch" type="Position2D" parent="Node2D/HumanLife"]
 position = Vector2( 24, 119 )
 
 [node name="Fridge" type="Position2D" parent="Node2D/HumanLife"]
@@ -332,10 +336,6 @@ one_shot = true
 autostart = true
 
 [node name="EndRound" type="Timer" parent="Node2D/HumanLife"]
-
-[node name="Distracted" type="Timer" parent="Node2D/HumanLife"]
-wait_time = 0.5
-one_shot = true
 
 [node name="TV" type="StaticBody2D" parent="Node2D"]
 position = Vector2( 23, 121 )
@@ -507,11 +507,11 @@ shape = SubResource( 55 )
 [connection signal="body_exited" from="Node2D/Bed/AchBed" to="Node2D" method="_on_AchBed_body_exited"]
 [connection signal="cat_sleep" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_sleep"]
 [connection signal="cat_wake" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_wake"]
+[connection signal="body_entered" from="Node2D/HumanLife/Body" to="Node2D" method="_on_Human_Body_body_entered"]
+[connection signal="timeout" from="Node2D/HumanLife/Body/HumanSprite/Distracted" to="Node2D/HumanLife/Body/HumanSprite" method="_on_Distracted_timeout"]
 [connection signal="timeout" from="Node2D/HumanLife/Schedule" to="Node2D/HumanLife" method="_on_Schedule_timeout"]
-[connection signal="timeout" from="Node2D/HumanLife/Schedule" to="Node2D/HumanLife/Body/HumanSprite" method="_on_Schedule_timeout"]
 [connection signal="timeout" from="Node2D/HumanLife/BedTime" to="Node2D/HumanLife" method="_on_BedTime_timeout"]
 [connection signal="timeout" from="Node2D/HumanLife/EndRound" to="Node2D" method="_on_EndRound_timeout"]
-[connection signal="timeout" from="Node2D/HumanLife/Distracted" to="Node2D/HumanLife/Body/HumanSprite" method="_on_Distracted_timeout"]
 [connection signal="animation_finished" from="Node2D/Bars/Energy" to="Node2D" method="_on_Energy_animation_finished"]
 [connection signal="animation_finished" from="Node2D/Bars/Hunger" to="Node2D" method="_on_Hunger_animation_finished"]
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
