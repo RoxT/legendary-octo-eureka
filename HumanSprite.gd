@@ -18,6 +18,9 @@ var emotions = [NEUTRAL, ANGRY, TIRED, CUTE]
 var prev_dir:String
 var prev_emo:String
 
+onready var body:Area2D = get_parent()
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -46,9 +49,16 @@ func update_sprite(dir:String, emo:String):
 	var formatName = "%s_%s"
 	self.animation = formatName % [dir, emo]
 	
-func face(target:Vector2, emo:String):
+func distract(target:Vector2, emo:String = emotion):
 	prev_dir = direction
-	var body:Area2D = get_parent()
+	turn_towards(target, emo)
+	$Distracted.start()
+	
+func face(new_dir:String):
+	assert(directions.has(new_dir), "Direction to face is not a  direction: " + new_dir)
+	update_sprite(new_dir, emotion)
+
+func turn_towards(target:Vector2, emo:String = emotion):
 	var dist: Vector2 = body.position - target
 	if abs(dist.x) > abs(dist.y):
 		if dist.x > 0:
