@@ -1,0 +1,22 @@
+[gd_resource type="Theme" load_steps=5 format=2]
+
+[ext_resource path="res://resources/Tinierfont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/TinyFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://resources/TinierFontOld.tres" type="DynamicFont" id=3]
+[ext_resource path="res://resources/TinyBoldFont.tres" type="DynamicFont" id=4]
+
+[resource]
+default_font = ExtResource( 3 )
+Label/colors/font_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+RichTextLabel/colors/default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+font/fonts/Tinier = ExtResource( 1 )
+font/fonts/TinierOld = ExtResource( 3 )
+font/fonts/Tiny = ExtResource( 2 )
+font/fonts/TinyBold = ExtResource( 4 )
+head/base_type = "Label"
+head/colors/font_color_shadow = Color( 0.266667, 0.266667, 0.160784, 1 )
+head/colors/font_outline_modulate = Color( 1, 0, 0, 1 )
+head/constants/shadow_as_outline = 0
+head/constants/shadow_offset_x = 0
+head/constants/shadow_offset_y = 2
+head/fonts/font = ExtResource( 4 )
