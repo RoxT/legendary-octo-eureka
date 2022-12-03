@@ -4,4 +4,5 @@
 font_path = "res://resources/Tiny2.ttf"
 
 [resource]
+size = 9
 font_data = SubResource( 3 )
