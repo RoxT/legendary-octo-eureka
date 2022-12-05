@@ -2,7 +2,8 @@ extends Node2D
 
 const DEFAULT = "default"
 const MAIN_MENU_SCENE = "res://MainMenu.tscn"
-onready var hunger_full = $Bars/Hunger.frames.get_frame_count(DEFAULT)-1
+onready var hungerNode = $HUD/Hunger
+onready var energyNode = $HUD/Energy
 
 const TITLE_MUPLIPLIERS = "Multipliers this Round:"
 const TITLE_END_OF_DAY = "End of Day"
@@ -47,8 +48,6 @@ func _ready():
 	brushed_against = Achievement.new("brushed_against", 0.2)
 	achievements.append(brushed_against)
 	score = 0;
-	$Bars/Hunger.frame = 0
-	$Bars/Hunger.play()
 	config = ConfigFile.new()
 	var err = config.load(FILE_NAME)
 	if err != OK:
@@ -72,11 +71,12 @@ func _process(_delta):
 		$HUD/ScoreLabel.text = str(score)
 		$HUD/ModifierLabel.text = "x" + str(modifiers) + "!" if modifiers > 1 else ""
 
+
 func _on_Food_body_entered(body):
 	if body.name == "PlayerCat":
 		
 		if $Food/AnimatedSprite.frame == $Food.FOOD_FULL:
-			$Bars.eat()
+			hungerNode.eat()
 			$Food.empty()
 			$PlayerCat.eat()
 
@@ -84,11 +84,11 @@ func _on_Sleep_pressed():
 	$PlayerCat.sleep_toggle()
 
 func _on_PlayerCat_cat_sleep():
-	if ($Bars/Hunger.frame == hunger_full):
+	if (hungerNode.value <= 0):
 		$PlayerCat.sleep_toggle()
 	else:
 		sleeping = true
-		$Bars.sleep()
+		energyNode.sleep()
 		if slept_on_bed.active:
 			slept_on_bed.achieved = true
 		if played_with_ball.active:
@@ -99,30 +99,27 @@ func _on_PlayerCat_cat_sleep():
 
 func _on_PlayerCat_cat_wake():
 	sleeping = false
-	$Bars.wake()
+	energyNode.wake()
 	played_with_ball.active = false
 	brushed_against.active = false
 
-func _on_Energy_animation_finished():
+func _on_Energy_fully_napped():
 	if sleeping:
 		$PlayerCat.sleep_toggle()
 
-func _on_Hunger_animation_finished():
+func _on_Hunger_too_hungry():
 	if sleeping :
 		$PlayerCat.sleep_toggle()
-
 
 func _on_AchBed_body_entered(body):
 	print(body.name, " is on the bed")
 	if body.name == CAT:
 		slept_on_bed.active = true
 
-
 func _on_AchBed_body_exited(body):
 	print(body.name, " is off the bed")
 	if body.name == CAT:
 		slept_on_bed.active = false
-
 
 func _on_Ball_body_entered(body):
 	if body.name == CAT:
@@ -202,4 +199,3 @@ func get_multipliers_list(label: RichTextLabel, high_score:String, total_score:S
 	label.add_text(high_score)
 	label.newline()
 	label.add_text(total_score)
-

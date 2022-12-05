@@ -34,7 +34,7 @@ var annoyed: int = 0
 
 #Time
 
-const A_DAY: int = 72 #Multiples of 24 = 24, 48, 72, 96, 120
+const A_DAY: int = 120 #Multiples of 24 = 24, 48, 72, 96, 120
 var sec_per_hour:int = A_DAY/24
 const MIN_DURATION = 2
 const MAX_DURATION = 4

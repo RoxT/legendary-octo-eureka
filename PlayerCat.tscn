@@ -6,7 +6,7 @@
 [ext_resource path="res://textures/jump.png" type="Texture" id=4]
 [ext_resource path="res://CatFeetShape.tres" type="Shape2D" id=5]
 [ext_resource path="res://textures/reticule.png" type="Texture" id=6]
-[ext_resource path="res://textures/cat eating.png" type="Texture" id=7]
+[ext_resource path="res://textures/cateating.png" type="Texture" id=7]
 [ext_resource path="res://Catcall.ogg" type="AudioStream" id=8]
 
 [sub_resource type="AtlasTexture" id=15]

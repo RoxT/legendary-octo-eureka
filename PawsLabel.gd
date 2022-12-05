@@ -1,9 +1,6 @@
-extends Control
+extends RichTextLabel
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+const TITLE = "Paws Screen"
 
 
 # Called when the node enters the scene tree for the first time.

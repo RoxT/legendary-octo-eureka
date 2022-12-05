@@ -1,10 +1,9 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://jump_furnature/Bed.tscn" type="PackedScene" id=2]
 [ext_resource path="res://textures/room.png" type="Texture" id=3]
-[ext_resource path="res://textures/ui.png" type="Texture" id=4]
-[ext_resource path="res://Bars.tscn" type="PackedScene" id=5]
+[ext_resource path="res://PawsLabel.gd" type="Script" id=4]
 [ext_resource path="res://textures/furniture/desk.png" type="Texture" id=6]
 [ext_resource path="res://textures/furniture/side table.png" type="Texture" id=7]
 [ext_resource path="res://jump_furnature/Sink.tscn" type="PackedScene" id=8]
@@ -16,7 +15,6 @@
 [ext_resource path="res://LevelConroller.gd" type="Script" id=14]
 [ext_resource path="res://Human.gd" type="Script" id=15]
 [ext_resource path="res://Food.gd" type="Script" id=16]
-[ext_resource path="res://Bars.gd" type="Script" id=17]
 [ext_resource path="res://textures/pixel button down.png" type="Texture" id=18]
 [ext_resource path="res://textures/pixel button up.png" type="Texture" id=19]
 [ext_resource path="res://Buttons.tscn" type="PackedScene" id=20]
@@ -27,10 +25,8 @@
 [ext_resource path="res://resources/HumanSprites.tres" type="SpriteFrames" id=25]
 [ext_resource path="res://textures/meter-bg1.png" type="Texture" id=26]
 [ext_resource path="res://textures/meter-bar.png" type="Texture" id=27]
-[ext_resource path="res://resources/Tinierfont.tres" type="DynamicFont" id=28]
-[ext_resource path="res://resources/TinyFont.tres" type="DynamicFont" id=29]
-[ext_resource path="res://resources/TinyBoldFont.tres" type="DynamicFont" id=30]
-[ext_resource path="res://HUD.gd" type="Script" id=31]
+[ext_resource path="res://Energy.gd" type="Script" id=31]
+[ext_resource path="res://Hunger.gd" type="Script" id=32]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 13 )
@@ -71,94 +67,6 @@ extents = Vector2( 6, 3.5 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16, 5 )
-
-[sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 4 )
-region = Rect2( 80, 32, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 4 )
-region = Rect2( 160, 32, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 4 )
-region = Rect2( 240, 32, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=38]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 48, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 4 )
-region = Rect2( 80, 48, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 4 )
-region = Rect2( 160, 48, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 4 )
-region = Rect2( 240, 48, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 64, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 4 )
-region = Rect2( 80, 64, 80, 16 )
-
-[sub_resource type="SpriteFrames" id=34]
-animations = [ {
-"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ) ],
-"loop": false,
-"name": "default",
-"speed": 1.0
-} ]
-
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=45]
-atlas = ExtResource( 4 )
-region = Rect2( 80, 0, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 4 )
-region = Rect2( 160, 0, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=47]
-atlas = ExtResource( 4 )
-region = Rect2( 240, 0, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=48]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 16, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=49]
-atlas = ExtResource( 4 )
-region = Rect2( 80, 16, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=50]
-atlas = ExtResource( 4 )
-region = Rect2( 160, 16, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=51]
-atlas = ExtResource( 4 )
-region = Rect2( 240, 16, 80, 16 )
-
-[sub_resource type="AtlasTexture" id=52]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 32, 80, 16 )
-
-[sub_resource type="SpriteFrames" id=53]
-animations = [ {
-"frames": [ SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ) ],
-"loop": false,
-"name": "default",
-"speed": 0.5
-} ]
 
 [sub_resource type="CircleShape2D" id=12]
 radius = 7.0
@@ -352,24 +260,6 @@ texture = ExtResource( 10 )
 position = Vector2( 0, 11 )
 shape = SubResource( 6 )
 
-[node name="Bars" parent="Node2D" instance=ExtResource( 5 )]
-visible = false
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -1.0
-margin_right = -1.0
-script = ExtResource( 17 )
-
-[node name="Energy" type="AnimatedSprite" parent="Node2D/Bars"]
-position = Vector2( 120, 9 )
-frames = SubResource( 34 )
-frame = 8
-playing = true
-
-[node name="Hunger" type="AnimatedSprite" parent="Node2D/Bars"]
-position = Vector2( 41, 8 )
-frames = SubResource( 53 )
-
 [node name="Food" type="Area2D" parent="Node2D"]
 position = Vector2( 15, 54 )
 script = ExtResource( 16 )
@@ -439,18 +329,21 @@ layer = 10
 
 [node name="PauseDialog" type="PopupDialog" parent="Node2D/TopUI"]
 pause_mode = 2
+visible = true
 margin_right = 156.0
 margin_bottom = 139.0
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Node2D/TopUI/PauseDialog"]
+[node name="PawsLabel" type="RichTextLabel" parent="Node2D/TopUI/PauseDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
 margin_right = 5.0
-text = "Achievements: "
+bbcode_text = "[u]{Paws Menu:}[/u]"
+text = "[u]{Paws Menu:}[/u]"
+script = ExtResource( 4 )
 
 [node name="ResetBtn" type="Button" parent="Node2D/TopUI/PauseDialog"]
 anchor_left = 1.0
@@ -474,43 +367,20 @@ margin_right = -5.0
 margin_bottom = 15.0
 text = "Paused"
 
-[node name="TinyLabel" type="Label" parent="Node2D"]
-margin_left = -124.0
-margin_top = 68.0
-margin_right = -84.0
-margin_bottom = 81.0
-custom_fonts/font = ExtResource( 29 )
-text = "sleep"
-
-[node name="TinierLabel" type="Label" parent="Node2D"]
-margin_left = -122.0
-margin_top = 87.0
-margin_right = -76.0
-margin_bottom = 103.0
-custom_fonts/font = ExtResource( 28 )
-text = "sleep"
-
-[node name="BoldLabel" type="Label" parent="Node2D"]
-margin_left = 30.0
-margin_top = 62.0
-margin_right = 94.0
-margin_bottom = 78.0
-custom_fonts/font = ExtResource( 30 )
-text = "sleep"
-
 [node name="HUD" type="Control" parent="Node2D"]
 margin_right = 160.0
 margin_bottom = 17.0
-script = ExtResource( 31 )
 
 [node name="Hunger" type="TextureProgress" parent="Node2D/HUD"]
 margin_top = 10.0
 margin_right = 54.0
 margin_bottom = 16.0
 theme = ExtResource( 13 )
-value = 70.0
+max_value = 3000.0
+value = 4.0
 texture_under = ExtResource( 26 )
 texture_progress = ExtResource( 27 )
+script = ExtResource( 32 )
 
 [node name="Label" type="Label" parent="Node2D/HUD/Hunger"]
 margin_left = 1.0
@@ -527,9 +397,11 @@ margin_top = 10.0
 margin_right = 109.0
 margin_bottom = 16.0
 theme = ExtResource( 13 )
+max_value = 3000.0
 value = 70.0
 texture_under = ExtResource( 26 )
 texture_progress = ExtResource( 27 )
+script = ExtResource( 31 )
 
 [node name="Label" type="Label" parent="Node2D/HUD/Energy"]
 margin_left = 1.0
@@ -599,8 +471,6 @@ shape = SubResource( 55 )
 [connection signal="timeout" from="Node2D/HumanLife/Schedule" to="Node2D/HumanLife" method="_on_Schedule_timeout"]
 [connection signal="timeout" from="Node2D/HumanLife/BedTime" to="Node2D/HumanLife" method="_on_BedTime_timeout"]
 [connection signal="timeout" from="Node2D/HumanLife/EndRound" to="Node2D" method="_on_EndRound_timeout"]
-[connection signal="animation_finished" from="Node2D/Bars/Energy" to="Node2D" method="_on_Energy_animation_finished"]
-[connection signal="animation_finished" from="Node2D/Bars/Hunger" to="Node2D" method="_on_Hunger_animation_finished"]
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
 [connection signal="body_entered" from="Node2D/Food" to="Node2D" method="_on_Food_body_entered"]
 [connection signal="pressed" from="Node2D/Meow" to="Node2D" method="_on_Meow_pressed"]
@@ -609,3 +479,5 @@ shape = SubResource( 55 )
 [connection signal="pressed" from="Node2D/PawsBtn" to="Node2D" method="_on_PawsBtn_pressed"]
 [connection signal="button_down" from="Node2D/TopUI/PauseDialog/ResetBtn" to="Node2D" method="_on_ResetBtn_button_down"]
 [connection signal="button_down" from="Node2D/TopUI/PauseDialog/Button" to="Node2D" method="_on_Button_button_down"]
+[connection signal="too_hungry" from="Node2D/HUD/Hunger" to="Node2D" method="_on_Hunger_too_hungry"]
+[connection signal="fully_napped" from="Node2D/HUD/Energy" to="Node2D" method="_on_Energy_fully_napped"]
