@@ -17,6 +17,8 @@ var sleeping: bool = false
 const default_multiplier = 10.0
 const CAT = "PlayerCat"
 
+const BALL_DRAIN = 50
+
 class Achievement:
 	var name: String
 	var multiplier: float
@@ -127,6 +129,7 @@ func _on_Ball_body_entered(body):
 	if body.name == CAT:
 		$Ball/BallAudioStreamPlayer.play()
 		played_with_ball.active = true
+		energyNode.drain(BALL_DRAIN)
 
 func _on_Human_Body_body_entered(body):
 	if body.name == CAT && $HumanLife.has_time_for_cute():

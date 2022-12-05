@@ -201,6 +201,7 @@ script = ExtResource( 15 )
 position = Vector2( 0, -7 )
 frames = ExtResource( 25 )
 animation = "up_"
+frame = 1
 playing = true
 script = ExtResource( 21 )
 __meta__ = {

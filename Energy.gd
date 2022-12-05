@@ -1,6 +1,7 @@
 extends TextureProgress
 
 export var tired_threshold:int = 1000
+export var recovery_rate:int = 3
 onready var label = $Label
 const PLAYFULL_TITLE = "Playfull!"
 const SLEEPY_TITLE = "Sleepy"
@@ -14,9 +15,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if sleeping:
-		value = value + step
+		value = value + step*recovery_rate
 	else:
-		value = value - step
+		value = value - step*recovery_rate
 
 	label.text = SLEEPY_TITLE if value <= tired_threshold else PLAYFULL_TITLE
 	if value >= max_value:
@@ -27,3 +28,6 @@ func wake():
 	
 func sleep():
 	sleeping = true
+	
+func drain(amount: int):
+	value = value - amount
