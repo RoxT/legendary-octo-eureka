@@ -7,6 +7,8 @@
 [resource]
 default_font = ExtResource( 2 )
 Label/colors/font_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+LabelTiny/base_type = "Label"
+LabelTiny/fonts/font = ExtResource( 1 )
 RichTextLabel/colors/default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
 font/fonts/Tinier = ExtResource( 1 )
 font/fonts/Tiny = ExtResource( 2 )

@@ -69,8 +69,8 @@ func _process(_delta):
 		modifiers = modifiers + (played_with_ball.multiplier if played_with_ball.active else 0.0)
 		modifiers = modifiers + (brushed_against.multiplier if brushed_against.active else 0.0)
 		score = score + default_multiplier * modifiers
-		change_debug_label($DebugLabel, score)
-		change_debug_label($Modifier, modifiers)
+		$HUD/ScoreLabel.text = str(score)
+		$HUD/ModifierLabel.text = "x" + str(modifiers) + "!" if modifiers > 1 else ""
 
 func _on_Food_body_entered(body):
 	if body.name == "PlayerCat":
@@ -79,10 +79,6 @@ func _on_Food_body_entered(body):
 			$Bars.eat()
 			$Food.empty()
 			$PlayerCat.eat()
-			
-func change_debug_label(label: Label, text):
-	var formatDebug = "%s"
-	label.text = formatDebug % text
 
 func _on_Sleep_pressed():
 	$PlayerCat.sleep_toggle()
