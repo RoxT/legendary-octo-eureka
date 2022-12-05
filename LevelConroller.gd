@@ -9,6 +9,8 @@ const TITLE_MUPLIPLIERS = "Multipliers this Round:"
 const TITLE_END_OF_DAY = "End of Day"
 const NO_ACHIEVEMENTS = "No multipliers achieved today"
 
+const PAWS_SUBTITLE = "Multipliers achieved:"
+
 var score: int
 var sleeping: bool = false
 
@@ -55,7 +57,7 @@ func _ready():
 	played_with_ball.achieved_already = config.get_value(SECTION_ACHIEVEMENTS, played_with_ball.name, false)
 	slept_on_bed.achieved_already = config.get_value(SECTION_ACHIEVEMENTS, slept_on_bed.name, false)
 	brushed_against.achieved_already = config.get_value(SECTION_ACHIEVEMENTS, brushed_against.name, false)
-	
+	$HUD/ScoreLabel.text = str(score)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -69,7 +71,7 @@ func _process(_delta):
 		modifiers = modifiers + (brushed_against.multiplier if brushed_against.active else 0.0)
 		score = score + default_multiplier * modifiers
 		$HUD/ScoreLabel.text = str(score)
-		$HUD/ModifierLabel.text = "x" + str(modifiers) + "!" if modifiers > 1 else ""
+		$HUD/ModifierLabel.text = "x" + str(modifiers) + ("!" if modifiers > 1 else "")
 
 
 func _on_Food_body_entered(body):
@@ -137,18 +139,21 @@ func _on_Meow_pressed():
 
 func _on_PawsBtn_pressed():
 	get_tree().paused = true
-	var label:RichTextLabel = $TopUI/PauseDialog/RichTextLabel
+	var label:RichTextLabel = $TopUI/PauseDialog/PawsLabel
 	label.clear()
+	label.add_text(PAWS_SUBTITLE)
+	label.newline()
 	for a in achievements:
-		label.add_text(a.name)
-		label.add_text(": ")
-		label.add_text("Yes" if a.achieved == true else "No")
+		label.add_text("	" + a.name)
+		label.add_text((" x" + str(a.multiplier)) if a.achieved == true else "	NO")
 		label.newline()
 	$TopUI/PauseDialog.show()
+	$HUD.position.y = 128
 	
 func _on_Button_button_down():
 	get_tree().paused = false
 	$TopUI/PauseDialog.hide()
+	$HUD.position.y = 0
 
 func _on_ResetBtn_button_down():
 	get_tree().paused = false

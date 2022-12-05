@@ -228,7 +228,7 @@ position = Vector2( 24, 119 )
 position = Vector2( 49, 49 )
 
 [node name="Bed" type="Position2D" parent="Node2D/HumanLife"]
-position = Vector2( 134, 119 )
+position = Vector2( 134, 125 )
 
 [node name="Desk" type="Position2D" parent="Node2D/HumanLife"]
 position = Vector2( 135, 54 )
@@ -329,20 +329,140 @@ layer = 10
 
 [node name="PauseDialog" type="PopupDialog" parent="Node2D/TopUI"]
 pause_mode = 2
-visible = true
-margin_right = 156.0
-margin_bottom = 139.0
+margin_right = 161.0
+margin_bottom = 128.0
+theme = ExtResource( 13 )
 __meta__ = {
 "_edit_group_": true
 }
 
+[node name="PawsTitle" type="Label" parent="Node2D/TopUI/PauseDialog"]
+margin_top = 2.0
+margin_right = 160.0
+margin_bottom = 11.0
+theme = ExtResource( 13 )
+theme_type_variation = "head"
+text = "Paws Screen"
+align = 1
+
+[node name="Line2D" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle"]
+position = Vector2( 45.2192, 5.96046e-08 )
+scale = Vector2( 1.05479, 1 )
+points = PoolVector2Array( -3, 8, 68, 8 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="up_right" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle"]
+position = Vector2( -1, -2 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="Line2D4" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle/up_right"]
+position = Vector2( 1, -1 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="Line2D5" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle/up_right"]
+position = Vector2( 2, -2 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="Line2D6" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle/up_right"]
+visible = false
+position = Vector2( 3, -3 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="center_right" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle"]
+position = Vector2( -1, 0 )
+points = PoolVector2Array( 119, 3, 124, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="down_right" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle"]
+position = Vector2( -1, 2 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="Line2D4" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle/down_right"]
+position = Vector2( 1, 1 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="Line2D5" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle/down_right"]
+position = Vector2( 2, 2 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="Line2D6" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle/down_right"]
+visible = false
+position = Vector2( 3, 3 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="up_left" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle"]
+position = Vector2( -79, -2 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="Line2D4" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle/up_left"]
+position = Vector2( -1, -1 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="Line2D5" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle/up_left"]
+position = Vector2( -2, -2 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="center_left" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle"]
+position = Vector2( -83, 0 )
+points = PoolVector2Array( 119, 3, 124, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="down_left" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle"]
+position = Vector2( -79, 2 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="Line2D4" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle/down_left"]
+position = Vector2( -1, 1 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
+[node name="Line2D5" type="Line2D" parent="Node2D/TopUI/PauseDialog/PawsTitle/down_left"]
+position = Vector2( -2, 2 )
+points = PoolVector2Array( 119, 3, 120, 3 )
+width = 1.0
+default_color = Color( 0.886275, 0.87451, 0.694118, 1 )
+
 [node name="PawsLabel" type="RichTextLabel" parent="Node2D/TopUI/PauseDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_right = 5.0
-bbcode_text = "[u]{Paws Menu:}[/u]"
-text = "[u]{Paws Menu:}[/u]"
+margin_top = 16.0
+margin_right = 4.0
+margin_bottom = 16.0
+bbcode_enabled = true
+bbcode_text = "Multipliers achieved:
+	Slept on bed x1.2
+	Played with ball x1.2"
+text = "Multipliers achieved:
+	Slept on bed x1.2
+	Played with ball x1.2"
 script = ExtResource( 4 )
 
 [node name="ResetBtn" type="Button" parent="Node2D/TopUI/PauseDialog"]
@@ -350,10 +470,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -50.0
-margin_top = -5.0
-margin_right = -2.0
-margin_bottom = 15.0
+margin_left = -56.0
+margin_top = -23.0
+margin_right = -3.0
+margin_bottom = -3.0
 text = "Continue"
 
 [node name="Button" type="Button" parent="Node2D/TopUI/PauseDialog"]
@@ -361,15 +481,19 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -63.0
-margin_top = -5.0
-margin_right = -5.0
-margin_bottom = 15.0
+margin_left = -78.5
+margin_top = -23.0
+margin_right = -20.5
+margin_bottom = -3.0
 text = "Paused"
 
-[node name="HUD" type="Control" parent="Node2D"]
+[node name="HUD" type="Node2D" parent="Node2D"]
+z_index = 10
+
+[node name="ColorRect" type="ColorRect" parent="Node2D/HUD"]
 margin_right = 160.0
-margin_bottom = 17.0
+margin_bottom = 16.0
+color = Color( 0.266667, 0.266667, 0.160784, 1 )
 
 [node name="Hunger" type="TextureProgress" parent="Node2D/HUD"]
 margin_top = 10.0
@@ -406,7 +530,7 @@ script = ExtResource( 31 )
 [node name="Label" type="Label" parent="Node2D/HUD/Energy"]
 margin_left = 1.0
 margin_top = -7.0
-margin_right = 41.0
+margin_right = 42.0
 margin_bottom = 2.0
 theme = ExtResource( 13 )
 theme_type_variation = "head"
@@ -423,7 +547,7 @@ text = "Score"
 [node name="ScoreLabel" type="Label" parent="Node2D/HUD"]
 margin_left = 110.0
 margin_top = 9.0
-margin_right = 140.0
+margin_right = 160.0
 margin_bottom = 17.0
 theme_type_variation = "LabelTiny"
 text = "1000000000"
@@ -434,7 +558,7 @@ margin_top = 1.0
 margin_right = 169.0
 margin_bottom = 9.0
 theme_type_variation = "LabelTiny"
-text = "x1.4!"
+text = "x1.0"
 
 [node name="Walls" type="Node" parent="."]
 
