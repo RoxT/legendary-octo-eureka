@@ -46,12 +46,12 @@ margin_bottom = 6.5
 text = "Multipliers"
 
 [node name="Buttons" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 145 )
 
 [node name="Label" type="Label" parent="Buttons"]
-margin_left = 1.0
-margin_top = -16.0
-margin_right = 162.0
-margin_bottom = -2.0
+margin_top = -10.0
+margin_right = 161.0
+margin_bottom = 4.0
 text = "vvvv Use Buttons to Play vvvv"
 
 [node name="Achievements" type="RichTextLabel" parent="."]

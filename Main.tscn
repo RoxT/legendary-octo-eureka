@@ -1,9 +1,10 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://jump_furnature/Bed.tscn" type="PackedScene" id=2]
 [ext_resource path="res://textures/room.png" type="Texture" id=3]
 [ext_resource path="res://PawsLabel.gd" type="Script" id=4]
+[ext_resource path="res://textures/button up.png" type="Texture" id=5]
 [ext_resource path="res://textures/furniture/desk.png" type="Texture" id=6]
 [ext_resource path="res://textures/furniture/side table.png" type="Texture" id=7]
 [ext_resource path="res://jump_furnature/Sink.tscn" type="PackedScene" id=8]
@@ -15,16 +16,16 @@
 [ext_resource path="res://LevelConroller.gd" type="Script" id=14]
 [ext_resource path="res://Human.gd" type="Script" id=15]
 [ext_resource path="res://Food.gd" type="Script" id=16]
-[ext_resource path="res://textures/pixel button down.png" type="Texture" id=18]
-[ext_resource path="res://textures/pixel button up.png" type="Texture" id=19]
+[ext_resource path="res://textures/button down.png" type="Texture" id=17]
 [ext_resource path="res://Buttons.tscn" type="PackedScene" id=20]
 [ext_resource path="res://HumanSprite.gd" type="Script" id=21]
 [ext_resource path="res://Ball.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Ball.ogg" type="AudioStream" id=23]
-[ext_resource path="res://app_icon.png" type="Texture" id=24]
+[ext_resource path="res://textures/paws button down.png" type="Texture" id=24]
 [ext_resource path="res://resources/HumanSprites.tres" type="SpriteFrames" id=25]
 [ext_resource path="res://textures/meter-bg1.png" type="Texture" id=26]
 [ext_resource path="res://textures/meter-bar.png" type="Texture" id=27]
+[ext_resource path="res://textures/paws button up.png" type="Texture" id=28]
 [ext_resource path="res://Energy.gd" type="Script" id=31]
 [ext_resource path="res://Hunger.gd" type="Script" id=32]
 
@@ -88,10 +89,9 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=61]
-radius = 15.0
+radius = 11.0
 
 [sub_resource type="CircleShape2D" id=58]
-radius = 103.09
 
 [sub_resource type="RectangleShape2D" id=56]
 extents = Vector2( 55, 8.5 )
@@ -276,36 +276,37 @@ position = Vector2( 0, -3 )
 frames = SubResource( 11 )
 
 [node name="Meow" type="TouchScreenButton" parent="Node2D"]
-position = Vector2( 131, 212 )
-scale = Vector2( 0.5625, 0.5625 )
-normal = ExtResource( 19 )
-pressed = ExtResource( 18 )
+position = Vector2( 85, 176 )
+normal = ExtResource( 5 )
+pressed = ExtResource( 17 )
 shape = SubResource( 61 )
 
 [node name="Label" type="Label" parent="Node2D/Meow"]
-margin_left = 1.52382
-margin_top = 33.5238
-margin_right = 41.5238
-margin_bottom = 46.5238
-text = "Meow!"
+margin_left = -4.0
+margin_top = 23.0
+margin_right = 24.0
+margin_bottom = 32.0
+text = "meow"
 
 [node name="Sleep" type="TextureButton" parent="Node2D"]
-margin_left = 130.0
-margin_top = 161.0
-margin_right = 162.0
-margin_bottom = 195.0
+margin_left = 135.0
+margin_top = 176.0
+margin_right = 155.0
+margin_bottom = 198.0
 rect_pivot_offset = Vector2( 19, 24 )
-texture_normal = ExtResource( 19 )
-texture_pressed = ExtResource( 18 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 17 )
+stretch_mode = 2
 
 [node name="Label" type="Label" parent="Node2D/Sleep"]
 margin_left = -2.0
-margin_top = 31.0
-margin_right = 38.0
-margin_bottom = 45.0
-text = "Sleep"
+margin_top = 23.0
+margin_right = 25.0
+margin_bottom = 32.0
+text = "sleep"
 
 [node name="Buttons" parent="Node2D" instance=ExtResource( 20 )]
+position = Vector2( 0, 145 )
 
 [node name="Ball" parent="Node2D" instance=ExtResource( 22 )]
 position = Vector2( 109, 75 )
@@ -320,10 +321,17 @@ bus = "Ball"
 [node name="SoundTimer" type="Timer" parent="Node2D/Ball"]
 
 [node name="PawsBtn" type="TouchScreenButton" parent="Node2D"]
-position = Vector2( 94, 163 )
-scale = Vector2( 0.104167, 0.104167 )
-normal = ExtResource( 24 )
+position = Vector2( 72, 226 )
+normal = ExtResource( 28 )
+pressed = ExtResource( 24 )
 shape = SubResource( 58 )
+
+[node name="Label" type="Label" parent="Node2D/PawsBtn"]
+margin_left = -1.0
+margin_top = 12.0
+margin_right = 25.0
+margin_bottom = 21.0
+text = "paws"
 
 [node name="TopUI" type="CanvasLayer" parent="Node2D"]
 layer = 10
@@ -497,9 +505,9 @@ margin_bottom = 16.0
 color = Color( 0.266667, 0.266667, 0.160784, 1 )
 
 [node name="Hunger" type="TextureProgress" parent="Node2D/HUD"]
-margin_top = 10.0
+margin_top = 9.0
 margin_right = 54.0
-margin_bottom = 16.0
+margin_bottom = 15.0
 theme = ExtResource( 13 )
 max_value = 3000.0
 value = 4.0
@@ -510,17 +518,17 @@ script = ExtResource( 32 )
 [node name="Label" type="Label" parent="Node2D/HUD/Hunger"]
 margin_left = 1.0
 margin_top = -7.0
-margin_right = 41.0
+margin_right = 43.0
 margin_bottom = 2.0
 theme = ExtResource( 13 )
 theme_type_variation = "head"
-text = "Hungry"
+text = "Hungry!"
 
 [node name="Energy" type="TextureProgress" parent="Node2D/HUD"]
 margin_left = 55.0
-margin_top = 10.0
+margin_top = 9.0
 margin_right = 109.0
-margin_bottom = 16.0
+margin_bottom = 15.0
 theme = ExtResource( 13 )
 max_value = 3000.0
 value = 70.0

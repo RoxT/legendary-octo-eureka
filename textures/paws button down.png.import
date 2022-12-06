@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pixel button up.png-1124096913dabc31dd625239c0e30cfd.stex"
+path="res://.import/paws button down.png-b241f77a2546b373d147a6f4a76bee6d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/pixel button up.png"
-dest_files=[ "res://.import/pixel button up.png-1124096913dabc31dd625239c0e30cfd.stex" ]
+source_file="res://textures/paws button down.png"
+dest_files=[ "res://.import/paws button down.png-b241f77a2546b373d147a6f4a76bee6d.stex" ]
 
 [params]
 

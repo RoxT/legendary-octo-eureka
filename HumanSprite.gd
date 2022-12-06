@@ -60,16 +60,14 @@ func face(new_dir:String):
 
 func turn_towards(target:Vector2, emo:String = emotion):
 	var dist: Vector2 = body.position - target
-	if abs(dist.x) > abs(dist.y):
+	if abs(dist.x) > abs(dist.y) || dist.y > 0:
 		if dist.x > 0:
 			update_sprite(LEFT, emo)
 		else:
 			update_sprite(RIGHT, emo)
 	else:
-		if dist.y < 0:
-			update_sprite(DOWN, emo)
-		else:
-			update_sprite(UP, emo)
+		update_sprite(DOWN, emo)
+
 	
 func _on_Schedule_timeout():
 	update_sprite(getRandomDirection(), getRandomEmotion())
