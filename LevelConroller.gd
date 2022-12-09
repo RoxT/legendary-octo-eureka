@@ -67,13 +67,17 @@ func _ready():
 
 func _process(_delta):
 	if sleeping:
+		score = score + default_multiplier * update_modifiers()
+
+		
+func update_modifiers()->int:
 		var modifiers = 1
 		modifiers = modifiers + (slept_on_bed.multiplier if slept_on_bed.active else 0.0)
 		modifiers = modifiers + (played_with_ball.multiplier if played_with_ball.active else 0.0)
 		modifiers = modifiers + (brushed_against.multiplier if brushed_against.active else 0.0)
-		score = score + default_multiplier * modifiers
 		$HUD/ScoreLabel.text = str(score)
-		$HUD/ModifierLabel.text = "x" + str(modifiers) + ("!" if modifiers > 1 else "")
+		$HUD/ModifierLabel.text = "x" + str(modifiers) + ("!" if modifiers > 1 else "")	
+		return modifiers
 
 
 func _on_Food_body_entered(body):
@@ -106,6 +110,7 @@ func _on_PlayerCat_cat_wake():
 	energyNode.wake()
 	played_with_ball.active = false
 	brushed_against.active = false
+	update_modifiers()
 
 func _on_Energy_fully_napped():
 	if sleeping:
@@ -119,21 +124,25 @@ func _on_AchBed_body_entered(body):
 	print(body.name, " is on the bed")
 	if body.name == CAT:
 		slept_on_bed.active = true
+		update_modifiers()
 
 func _on_AchBed_body_exited(body):
 	print(body.name, " is off the bed")
 	if body.name == CAT:
 		slept_on_bed.active = false
+		update_modifiers()
 
 func _on_Ball_body_entered(body):
 	if body.name == CAT:
 		$Ball/BallAudioStreamPlayer.play()
 		played_with_ball.active = true
+		update_modifiers()
 		energyNode.drain(BALL_DRAIN)
 
 func _on_Human_Body_body_entered(body):
 	if body.name == CAT && $HumanLife.has_time_for_cute():
 		brushed_against.active = true
+		update_modifiers()
 		$HumanLife.brushed_against(body.position)
 
 func _on_Meow_pressed():
