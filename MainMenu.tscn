@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Buttons.tscn" type="PackedScene" id=1]
 [ext_resource path="res://MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://resources/MyTheme.tres" type="Theme" id=3]
+[ext_resource path="res://textures/button up.png" type="Texture" id=4]
+[ext_resource path="res://textures/button down.png" type="Texture" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 11.0
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -68,3 +73,30 @@ margin_bottom = 36.0
 theme = ExtResource( 3 )
 theme_type_variation = "head"
 text = "Nap To Win"
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 0, 145 )
+
+[node name="Jump" type="TouchScreenButton" parent="Position2D"]
+position = Vector2( 110, 63 )
+normal = ExtResource( 4 )
+pressed = ExtResource( 5 )
+shape = SubResource( 1 )
+passby_press = true
+action = "jump"
+
+[node name="Jump2" type="TouchScreenButton" parent="Position2D"]
+position = Vector2( 85, 31 )
+normal = ExtResource( 4 )
+pressed = ExtResource( 5 )
+shape = SubResource( 1 )
+passby_press = true
+action = "jump"
+
+[node name="Jump3" type="TouchScreenButton" parent="Position2D"]
+position = Vector2( 135, 31 )
+normal = ExtResource( 4 )
+pressed = ExtResource( 5 )
+shape = SubResource( 1 )
+passby_press = true
+action = "jump"

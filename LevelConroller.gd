@@ -184,7 +184,7 @@ func _on_EndRound_timeout():
 	config.save(FILE_NAME)
 		
 	get_tree().paused = true
-	var label:RichTextLabel = $TopUI/PauseDialog/RichTextLabel
+	var label:RichTextLabel = $TopUI/PauseDialog/PawsLabel
 	get_multipliers_list(label, high_score_text, total_score_text)
 	$TopUI/PauseDialog.show()
 	
@@ -198,12 +198,18 @@ func get_multipliers_list(label: RichTextLabel, high_score:String, total_score:S
 		label.add_text(NO_ACHIEVEMENTS)
 		label.newline()
 	for a in achievements:
-		label.add_text(a.name)
-		label.add_text(": ")
-		label.add_text("Yes" if a.achieved == true else "No")
+		label.add_text(a.name + "	")
+		label.add_text(str(a.multiplier) if a.achieved == true else "NO")
 		if a.achieved && ! a.achieved_already:
 			label.add_text(" NEW")
 		label.newline()
 	label.add_text(high_score)
 	label.newline()
 	label.add_text(total_score)
+
+
+func _on_Vomit_timeout():
+	hungerNode.vomit()
+	if sleeping:
+		$PlayerCat.sleep_toggle()
+	$PlayerCat.vomit()

@@ -57,9 +57,14 @@ func _on_AnimatedSprite_animation_finished():
 		collision_mask = 1
 	elif sprite.animation == "eat":
 		sprite.animation = "run"
+	elif sprite.animation == "vomit":
+		sprite.animation = "run"
 		
 func eat():
 	sprite.animation = "eat"
+	
+func vomit():
+	sprite.animation = "vomit"
 	
 func meow():
 	$AudioStreamPlayer2D.play()

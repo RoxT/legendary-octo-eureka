@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/raw-cut.ogg-98db02e19e865beef46cbb1af80c410e.oggstr"
+
+[deps]
+
+source_file="res://resources/raw-cut.ogg"
+dest_files=[ "res://.import/raw-cut.ogg-98db02e19e865beef46cbb1af80c410e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

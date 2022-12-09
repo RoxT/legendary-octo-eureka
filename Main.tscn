@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://PlayerCat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://jump_furnature/Bed.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Human.gd" type="Script" id=15]
 [ext_resource path="res://Food.gd" type="Script" id=16]
 [ext_resource path="res://textures/button down.png" type="Texture" id=17]
+[ext_resource path="res://resources/raw-cut.ogg" type="AudioStream" id=18]
 [ext_resource path="res://Buttons.tscn" type="PackedScene" id=20]
 [ext_resource path="res://HumanSprite.gd" type="Script" id=21]
 [ext_resource path="res://Ball.tscn" type="PackedScene" id=22]
@@ -87,6 +88,9 @@ animations = [ {
 "name": "default",
 "speed": 0.5
 } ]
+
+[sub_resource type="CircleShape2D" id=62]
+radius = 11.0
 
 [sub_resource type="CircleShape2D" id=61]
 radius = 11.0
@@ -201,7 +205,6 @@ script = ExtResource( 15 )
 position = Vector2( 0, -7 )
 frames = ExtResource( 25 )
 animation = "up_"
-frame = 1
 playing = true
 script = ExtResource( 21 )
 __meta__ = {
@@ -275,38 +278,73 @@ shape = SubResource( 12 )
 position = Vector2( 0, -3 )
 frames = SubResource( 11 )
 
-[node name="Meow" type="TouchScreenButton" parent="Node2D"]
-position = Vector2( 85, 176 )
+[node name="Buttons" parent="Node2D" instance=ExtResource( 20 )]
+position = Vector2( 0, 145 )
+
+[node name="Jump" type="TouchScreenButton" parent="Node2D/Buttons"]
+position = Vector2( 110, 63 )
+normal = ExtResource( 5 )
+pressed = ExtResource( 17 )
+shape = SubResource( 62 )
+passby_press = true
+action = "jump"
+
+[node name="Label" type="Label" parent="Node2D/Buttons/Jump"]
+anchor_left = -4.556
+anchor_top = -5.60027
+anchor_right = -4.556
+anchor_bottom = -5.60027
+margin_left = 90.12
+margin_top = 145.206
+margin_right = 134.12
+margin_bottom = 159.206
+text = "jump"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Meow" type="TouchScreenButton" parent="Node2D/Buttons"]
+position = Vector2( 85, 31 )
 normal = ExtResource( 5 )
 pressed = ExtResource( 17 )
 shape = SubResource( 61 )
 
-[node name="Label" type="Label" parent="Node2D/Meow"]
+[node name="Label" type="Label" parent="Node2D/Buttons/Meow"]
 margin_left = -4.0
 margin_top = 23.0
 margin_right = 24.0
 margin_bottom = 32.0
 text = "meow"
 
-[node name="Sleep" type="TextureButton" parent="Node2D"]
+[node name="Sleep" type="TextureButton" parent="Node2D/Buttons"]
 margin_left = 135.0
-margin_top = 176.0
+margin_top = 31.0
 margin_right = 155.0
-margin_bottom = 198.0
+margin_bottom = 53.0
 rect_pivot_offset = Vector2( 19, 24 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 17 )
 stretch_mode = 2
 
-[node name="Label" type="Label" parent="Node2D/Sleep"]
+[node name="Label" type="Label" parent="Node2D/Buttons/Sleep"]
 margin_left = -2.0
 margin_top = 23.0
 margin_right = 25.0
 margin_bottom = 32.0
 text = "sleep"
 
-[node name="Buttons" parent="Node2D" instance=ExtResource( 20 )]
-position = Vector2( 0, 145 )
+[node name="PawsBtn" type="TouchScreenButton" parent="Node2D/Buttons"]
+position = Vector2( 72, 81 )
+normal = ExtResource( 28 )
+pressed = ExtResource( 24 )
+shape = SubResource( 58 )
+
+[node name="Label" type="Label" parent="Node2D/Buttons/PawsBtn"]
+margin_left = -1.0
+margin_top = 12.0
+margin_right = 25.0
+margin_bottom = 21.0
+text = "paws"
 
 [node name="Ball" parent="Node2D" instance=ExtResource( 22 )]
 position = Vector2( 109, 75 )
@@ -319,19 +357,6 @@ stream = ExtResource( 23 )
 bus = "Ball"
 
 [node name="SoundTimer" type="Timer" parent="Node2D/Ball"]
-
-[node name="PawsBtn" type="TouchScreenButton" parent="Node2D"]
-position = Vector2( 72, 226 )
-normal = ExtResource( 28 )
-pressed = ExtResource( 24 )
-shape = SubResource( 58 )
-
-[node name="Label" type="Label" parent="Node2D/PawsBtn"]
-margin_left = -1.0
-margin_top = 12.0
-margin_right = 25.0
-margin_bottom = 21.0
-text = "paws"
 
 [node name="TopUI" type="CanvasLayer" parent="Node2D"]
 layer = 10
@@ -509,7 +534,7 @@ margin_top = 9.0
 margin_right = 54.0
 margin_bottom = 15.0
 theme = ExtResource( 13 )
-max_value = 3000.0
+max_value = 2500.0
 value = 4.0
 texture_under = ExtResource( 26 )
 texture_progress = ExtResource( 27 )
@@ -524,13 +549,17 @@ theme = ExtResource( 13 )
 theme_type_variation = "head"
 text = "Hungry!"
 
+[node name="Vomit" type="Timer" parent="Node2D/HUD/Hunger"]
+wait_time = 3.0
+one_shot = true
+
 [node name="Energy" type="TextureProgress" parent="Node2D/HUD"]
 margin_left = 55.0
 margin_top = 9.0
 margin_right = 109.0
 margin_bottom = 15.0
 theme = ExtResource( 13 )
-max_value = 3000.0
+max_value = 4000.0
 value = 70.0
 texture_under = ExtResource( 26 )
 texture_progress = ExtResource( 27 )
@@ -595,6 +624,12 @@ shape = SubResource( 55 )
 position = Vector2( 3, 78 )
 shape = SubResource( 55 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+autoplay = true
+mix_target = 2
+bus = "Music"
+
 [connection signal="body_entered" from="Node2D/Bed/AchBed" to="Node2D" method="_on_AchBed_body_entered"]
 [connection signal="body_exited" from="Node2D/Bed/AchBed" to="Node2D" method="_on_AchBed_body_exited"]
 [connection signal="cat_sleep" from="Node2D/PlayerCat" to="Node2D" method="_on_PlayerCat_cat_sleep"]
@@ -606,11 +641,12 @@ shape = SubResource( 55 )
 [connection signal="timeout" from="Node2D/HumanLife/EndRound" to="Node2D" method="_on_EndRound_timeout"]
 [connection signal="area_entered" from="Node2D/Food" to="Node2D/Food" method="_on_Food_area_entered"]
 [connection signal="body_entered" from="Node2D/Food" to="Node2D" method="_on_Food_body_entered"]
-[connection signal="pressed" from="Node2D/Meow" to="Node2D" method="_on_Meow_pressed"]
-[connection signal="pressed" from="Node2D/Sleep" to="Node2D" method="_on_Sleep_pressed"]
+[connection signal="pressed" from="Node2D/Buttons/Meow" to="Node2D" method="_on_Meow_pressed"]
+[connection signal="pressed" from="Node2D/Buttons/Sleep" to="Node2D" method="_on_Sleep_pressed"]
+[connection signal="pressed" from="Node2D/Buttons/PawsBtn" to="Node2D" method="_on_PawsBtn_pressed"]
 [connection signal="body_entered" from="Node2D/Ball" to="Node2D" method="_on_Ball_body_entered"]
-[connection signal="pressed" from="Node2D/PawsBtn" to="Node2D" method="_on_PawsBtn_pressed"]
 [connection signal="button_down" from="Node2D/TopUI/PauseDialog/ResetBtn" to="Node2D" method="_on_ResetBtn_button_down"]
 [connection signal="button_down" from="Node2D/TopUI/PauseDialog/Button" to="Node2D" method="_on_Button_button_down"]
 [connection signal="too_hungry" from="Node2D/HUD/Hunger" to="Node2D" method="_on_Hunger_too_hungry"]
+[connection signal="timeout" from="Node2D/HUD/Hunger/Vomit" to="Node2D" method="_on_Vomit_timeout"]
 [connection signal="fully_napped" from="Node2D/HUD/Energy" to="Node2D" method="_on_Energy_fully_napped"]

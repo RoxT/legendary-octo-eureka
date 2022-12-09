@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://textures/cat.png" type="Texture" id=1]
 [ext_resource path="res://PlayerCatController.gd" type="Script" id=2]
@@ -57,6 +57,10 @@ region = Rect2( 48, 0, 16, 16 )
 atlas = ExtResource( 3 )
 region = Rect2( 112, 0, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 32, 16 )
+
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ SubResource( 15 ) ],
@@ -83,6 +87,11 @@ animations = [ {
 "loop": true,
 "name": "sleep",
 "speed": 1.5
+}, {
+"frames": [ SubResource( 16 ) ],
+"loop": true,
+"name": "vomit",
+"speed": 0.7
 } ]
 
 [sub_resource type="CanvasItemMaterial" id=14]
@@ -95,7 +104,7 @@ reticule_modifier = 16
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
-animation = "eat"
+animation = "vomit"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

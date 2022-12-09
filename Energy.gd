@@ -1,6 +1,6 @@
 extends TextureProgress
 
-export var tired_threshold:int = 1000
+export var tired_threshold:int = 500
 export var recovery_rate:int = 3
 onready var label = $Label
 const PLAYFULL_TITLE = "Playfull!"
@@ -19,7 +19,12 @@ func _process(delta):
 	else:
 		value = value - step*recovery_rate
 
-	label.text = SLEEPY_TITLE if value <= tired_threshold else PLAYFULL_TITLE
+	label.text = ""
+	if value <= tired_threshold:
+		label.text = SLEEPY_TITLE 
+	elif value >= max_value-tired_threshold:
+		label.text = PLAYFULL_TITLE
+		
 	if value >= max_value:
 		emit_signal("fully_napped")
 		
